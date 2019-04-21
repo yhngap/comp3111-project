@@ -16,10 +16,22 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.geometry.Insets;
 import javafx.scene.paint.Color;
+// Task 3 related
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 
 import java.util.Random;
 import java.util.Arrays;
 import java.util.List;
+
 public class Controller {
     @FXML
     private Tab tabMain;
@@ -68,18 +80,38 @@ public class Controller {
 
     @FXML
     private TextArea textAreaConsole;
-
+    
     
     private Scraper scraper = new Scraper();
     
+    // List: List element (task 3)
+    @FXML private TableView<Course> tableView = new TableView<Course>();
+    @FXML private TableColumn<Course, String> tCourseCode = new TableColumn<Course, String> ();
+    @FXML private TableColumn<Course, String> tLectureSection = new TableColumn<Course, String> ();
+    @FXML private TableColumn<Course, String> tCourseName = new TableColumn<Course, String> ();
+    @FXML private TableColumn<Course, String> tInstructor = new TableColumn<Course, String> ();
+    
+	@FXML 																			         // Associate data with Columns
+	private void initialize() {
+		tCourseCode.setCellValueFactory(new PropertyValueFactory<Course,String>("CourseCode"));
+		tLectureSection.setCellValueFactory(new PropertyValueFactory<Course,String>("firstSectionCode"));
+		tCourseName.setCellValueFactory(new PropertyValueFactory<Course,String>("CourseName"));
+//		tInstructor.setCellValueFactory(new PropertyValueFactory<Course,String>("instructors"));
+	}
+	
+	
+	
+	
     @FXML
     void allSubjectSearch() {
     	
     }
 
+    // Task 6
     @FXML
     void findInstructorSfq() {
-    	buttonInstructorSfq.setDisable(true);
+    	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
+    	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
     }
 
     @FXML
@@ -89,6 +121,10 @@ public class Controller {
 
     @FXML
     void search() {
+    	//Task 6 
+    	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
+    	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
+    	
     	//task 1
     	textAreaConsole.clear();
     	int courseCount = 0;
@@ -103,6 +139,8 @@ public class Controller {
     		textAreaConsole.setText("There is not class information. Make sure you enter correct information for search");
     		return;
     	}
+    	
+    	
     	for (Course c : v) {
     		courseCount +=1;									//get total course
     		sectionCount += c.getNumSection();					//get total section
@@ -134,6 +172,7 @@ public class Controller {
     		
     		for (int j = 0; j < c.getNumSection(); j++) {
     			String s = c.getSection(j).getSectionCode();
+    			
     		for (int i = 0; i < c.getSection(j).getNumSlots(); i++) {
     			Slot t = c.getSection(j).getSlot(i);
     			newline += s + ":" + t + "\n";
@@ -163,9 +202,47 @@ public class Controller {
     							"\nInstructors who has teaching assignment this term but does not need to teach at Tu 3:10pm: "
     							+ names +"\n"
     							+ textAreaConsole.getText());
+    	
     	//end
+    	
+    	// Task 3 
+    	
+    	// ScrappedResult for table to use;
+    	
+    	Course [] ScrappedResult = new Course [courseCount];							     //
+    	
+    	int i = 0;
+    	
+    	for (Course c: v) {
+    		for(int k = 0;k<c.getNumSection();k++ ) {
+    		ScrappedResult[i].setCourseCode(c.getCourseCode());
+    		ScrappedResult[i].setCourseName(c.getCourseName());
+    		for (int l = 0; l < c.getSection(k).getNumSlots(); l++){
+    			for (int zz = 0; zz < c.getSection(k).getSlot(l).getNumInstructors(); zz++) {
+    				ScrappedResult[i].addInstructor(c.getSection(k).getSlot(l).getInstructor(zz));
+    			}
+    		}
+    		ScrappedResult[i].setfirstSectionCode(c.getSection(k).getSectionCode());;
+    		i++;
+    		}
+    	}
+    	
+    	int j = 0;
+    	final ObservableList<Course> data = FXCollections.observableArrayList();	    	 // Define data in an Observable list   
+    	
+    	if (courseCount != 0) {
+    		for (Course courses : ScrappedResult) {											 // Filter result, need to wait filter result
+        		data.add(ScrappedResult[j]);
+        		j++; 		
+        	}      	
+    	}
 
     	
+    	tableView.setItems(data);                                                            // Add data inside table
+
+    	
+    	
+
     	
     	//Add a random block on Saturday
     	AnchorPane ap = (AnchorPane)tabTimetable.getContent();

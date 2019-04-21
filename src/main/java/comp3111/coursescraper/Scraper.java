@@ -178,7 +178,12 @@ public class Scraper {
 				HtmlElement htmlItem = (HtmlElement) items.get(i);
 				
 				HtmlElement title = (HtmlElement) htmlItem.getFirstByXPath(".//h2");
+			
 				c.setTitle(title.asText());
+				// Task 3 : 
+				c.setCourseCode(title.asText());
+				c.setCourseName(title.asText());
+				
 				
 				List<?> popupdetailslist = (List<?>) htmlItem.getByXPath(".//div[@class='popupdetail']/table/tbody/tr");
 				HtmlElement exclusion = null;

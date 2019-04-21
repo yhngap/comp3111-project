@@ -15,14 +15,21 @@ public class Course {
 	private String exclusion;
 	private Slot [] slots;
 	private int numSlots;
+	// Task 3
+	private String CourseCode;
+	private String CourseName;
+	private String firstSectionCode;
 	
 	//Task 1
 	private Section [] sections;
 	private int numSections;
 	private String [] instructors;
+
 	private int numInstructors;
+
 	//end
 	
+
 	public Course() {
 		slots = new Slot[DEFAULT_MAX_SLOT];
 		for (int i = 0; i < DEFAULT_MAX_SLOT; i++) slots[i] = null;
@@ -86,6 +93,32 @@ public class Course {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	// Task 3
+	public void setCourseCode(String CourseCode) {
+		CourseCode = title.substring(0,10);			// Cut the Course Title to get eg:(Comp2011) 
+	}
+	
+	public String getCourseCode() {
+		return CourseCode;
+	}
+	
+	public void setCourseName(String CourseName) {
+		CourseName = title.substring(11);
+	}
+	
+	public String getCourseName() {
+		return CourseName;
+	}
+	
+	public String getfirstSectionCode() {
+		return firstSectionCode;
+	}
+	
+	public void setfirstSectionCode (String sectionCode) {
+		this.firstSectionCode = sectionCode;
+	}
+	
 
 	/**
 	 * @return the description
@@ -159,6 +192,14 @@ public class Course {
 		this.numInstructors = numInstructors;
 	}
 	//end
+	
+	// Task 3
+	Course(String a, String b, String c, String d) {
+		this.CourseCode = a;
+		this.CourseName = c;
+		this.sections[0].setSectionCode(b);
+		this.instructors[0] = d;
+	}
 	
 	
 
