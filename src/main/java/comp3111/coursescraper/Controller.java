@@ -91,9 +91,15 @@ public class Controller {
     	List<Course> v = scraper.scrape(textfieldURL.getText(), textfieldTerm.getText(),textfieldSubject.getText());
     	for (Course c : v) {
     		String newline = c.getTitle() + "\n";
-    		for (int i = 0; i < c.getNumSlots(); i++) {
-    			Slot t = c.getSlot(i);
-    			newline += "Slot " + i + ":" + t + "\n";
+    		System.out.println(newline);
+    		System.out.println(c.getNumSection());
+    		for (int j = 0; j < c.getNumSection(); j++) {
+    			String s = c.getSection(j).getSectionCode();
+    		for (int i = 0; i < c.getSection(j).getNumSlots(); i++) {
+    			
+    			Slot t = c.getSection(j).getSlot(i);
+    			newline += s + ":" + t + "\n";
+    		}
     		}
     		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
     	}
@@ -103,7 +109,7 @@ public class Controller {
     	Label randomLabel = new Label("COMP1022\nL1");
     	Random r = new Random();
     	double start = (r.nextInt(10) + 1) * 20 + 40;
-
+    	double opacit=0.55;
     	randomLabel.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
     	randomLabel.setLayoutX(600.0);
     	randomLabel.setLayoutY(start);
@@ -114,6 +120,20 @@ public class Controller {
     
     	ap.getChildren().addAll(randomLabel);
     	
+    	AnchorPane ap1 = (AnchorPane)tabTimetable.getContent();
+    	Label randomLabel1 = new Label("COMP1022\nL1");
+    	Random r1 = new Random();
+    	double start1 = (r.nextInt(10) + 1) * 20 + 40;
+
+    	randomLabel1.setBackground(new Background(new BackgroundFill(Color.color(1,0, 0, 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
+    	randomLabel1.setLayoutX(600.0);
+    	randomLabel1.setLayoutY(start+10);
+    	randomLabel1.setMinWidth(100.0);
+    	randomLabel1.setMaxWidth(100.0);
+    	randomLabel1.setMinHeight(60);
+    	randomLabel1.setMaxHeight(60);
+    
+    	ap.getChildren().addAll(randomLabel1);
     	
     	
     }

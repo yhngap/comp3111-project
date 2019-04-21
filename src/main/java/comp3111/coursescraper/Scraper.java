@@ -101,11 +101,51 @@ public class Scraper {
 			s.setStart(times[1]);
 			s.setEnd(times[3]);
 			s.setVenue(venue);
-			c.addSlot(s);	
+			c.addSlot(s);
 		}
-
 	}
+	
+		private void addSectionSlot(HtmlElement e, Section sec, boolean secondRow) {
+			String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
+			String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
+			if (times[0].equals("TBA"))
+				return;
+			if(sec == null) {
+				return;
+			}
+			for (int j = 0; j < times[0].length(); j+=2) {
+				String code = times[0].substring(j , j + 2);
+				if (Slot.DAYS_MAP.get(code) == null)
+					break;
+				Slot s = new Slot();
+				s.setDay(Slot.DAYS_MAP.get(code));
+				s.setStart(times[1]);
+				s.setEnd(times[3]);
+				s.setVenue(venue);
+				sec.addSlot(s);
+			}	
+	}
+	
+	private	Section createSection( Course c,String section) {
+		int type;
+		System.out.println(section);
+		if(section.substring(0,2).equals("LA")) {
+			type=2;
+		}
+		else if(section.substring(0,1).equals("T")) {
+			type=1;
+		}
+		else if(section.substring(0,1).equals("L")) {
+			type=0;
+		}
+		else 
+			return null;
 
+		Section s = new Section();
+		s.setSectionCode(section);
+		s.setsectionType(type);
+		return s;
+	}
 	public List<Course> scrape(String baseurl, String term, String sub) {
 
 		try {
@@ -137,10 +177,17 @@ public class Scraper {
 				
 				List<?> sections = (List<?>) htmlItem.getByXPath(".//tr[contains(@class,'newsect')]");
 				for ( HtmlElement e: (List<HtmlElement>)sections) {
+					HtmlElement s = (HtmlElement) e.getFirstByXPath(".//td[contains(@align,'center')]");
+					Section section = createSection(c,s.asText());
 					addSlot(e, c, false);
+					addSectionSlot(e,section,false);
 					e = (HtmlElement)e.getNextSibling();
-					if (e != null && !e.getAttribute("class").contains("newsect"))
+					if (e != null && !e.getAttribute("class").contains("newsect")) {
 						addSlot(e, c, true);
+						addSectionSlot(e,section,true);
+					}
+					if(section != null)
+						c.addSection(section);
 				}
 				
 				result.add(c);
