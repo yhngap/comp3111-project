@@ -1,7 +1,7 @@
 package comp3111.coursescraper;
 
 
-
+//task1//
 public class Section {
 	private static final int DEFAULT_MAX_SLOT2 =10;
 	private String sectionCode;
@@ -56,3 +56,4 @@ public class Section {
 		this.numSlots = numSlots;
 	}
 }
+//end

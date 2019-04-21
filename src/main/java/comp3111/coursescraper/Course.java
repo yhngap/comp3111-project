@@ -4,25 +4,39 @@ package comp3111.coursescraper;
 
 public class Course {
 	private static final int DEFAULT_MAX_SLOT = 20;
+	
+	//Task 1
 	private static final int DEFAULT_MAX_Section =10;
-	private static final int DEFAULT_MAX_course =10;
+	private static final int DEFAULT_MAX_Instructor =10;
+	//end
+	
 	private String title ; 
 	private String description ;
 	private String exclusion;
 	private Slot [] slots;
 	private int numSlots;
+	
+	//Task 1
 	private Section [] sections;
 	private int numSections;
-	private String[] instructions;
+	private String[] instructors;
 	private int numInstructor;
+	//end
 	
 	public Course() {
 		slots = new Slot[DEFAULT_MAX_SLOT];
 		for (int i = 0; i < DEFAULT_MAX_SLOT; i++) slots[i] = null;
 		numSlots = 0;
+		
+		//Task 1//
 		sections = new Section[DEFAULT_MAX_Section];
 		for (int i = 0; i < DEFAULT_MAX_Section; i++) sections[i] = null;
 		numSections = 0;
+		instructors = new String[DEFAULT_MAX_Instructor];
+		for (int i = 0; i < DEFAULT_MAX_Instructor; i++) sections[i] = null;
+		numSections = 0;
+		//end
+		
 	}
 	
 	public void addSlot(Slot s) {
@@ -35,6 +49,8 @@ public class Course {
 			return slots[i];
 		return null;
 	}
+	
+	//task1//
 	public void addSection(Section s) {
 		if (numSections >= DEFAULT_MAX_Section)
 			return;
@@ -45,7 +61,8 @@ public class Course {
 			return sections[i];
 		return null;
 	}
-
+	//end
+	
 	/**
 	 * @return the title
 	 */
@@ -98,9 +115,12 @@ public class Course {
 	 * @return the numSections
 	 */
 	
+	//task1//
 	public int getNumSection() {
 		return numSections;
 	}
+	//end
+	
 	/**
 	 * @param numSlots the numSlots to set
 	 */
@@ -110,9 +130,13 @@ public class Course {
 	/**
 	 * @param numSections the numSections to set
 	 */
+	
+	//task1//
 	public void setNumSections(int numSections) {
 		this.numSections = numSections;
 	}
+	//end
+	
 	
 
 }
