@@ -88,6 +88,7 @@ public class Controller {
 
     @FXML
     void search() {
+    	//task 1
     	textAreaConsole.clear();
     	int courseCount = 0;
     	int sectionCount = 0;
@@ -114,7 +115,7 @@ public class Controller {
     							"\nTotal Number of Course in this search: " + courseCount + 
     							"\nInstructors who has teaching assignment this term but does not need to teach at Tu 3:10pm: "
     							+ textAreaConsole.getText());
-
+    	//end
 
     	
     	
@@ -134,6 +135,7 @@ public class Controller {
     
     	ap.getChildren().addAll(randomLabel);
     	
+    	//test
     	AnchorPane ap1 = (AnchorPane)tabTimetable.getContent();
     	Label randomLabel1 = new Label("COMP1022\nL1");
     	Random r1 = new Random();
@@ -148,7 +150,7 @@ public class Controller {
     	randomLabel1.setMaxHeight(60);
     
     	ap.getChildren().addAll(randomLabel1);
-    	
+    	//end
     	
     }
 

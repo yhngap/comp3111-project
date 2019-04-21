@@ -105,6 +105,7 @@ public class Scraper {
 		}
 	}
 	
+	//task1
 	private void addSectionSlot(HtmlElement e, Section sec, boolean secondRow) {
 			String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
 			String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
@@ -125,9 +126,14 @@ public class Scraper {
 				sec.addSlot(s);
 			}	
 	}
+	//end
+	
+	//task1
 	private void addInstruction(Course c, String name) {
 	}
+	//end
 	
+	//task1
 	private	Section createSection( Course c,String section) {
 		int type;
 		if(section.substring(0,2).equals("LA")) {
@@ -147,6 +153,8 @@ public class Scraper {
 		s.setsectionType(type);
 		return s;
 	}
+	//end
+	
 	public List<Course> scrape(String baseurl, String term, String sub) {
 
 		try {
@@ -179,18 +187,24 @@ public class Scraper {
 				
 				List<?> sections = (List<?>) htmlItem.getByXPath(".//tr[contains(@class,'newsect')]");
 				for ( HtmlElement e: (List<HtmlElement>)sections) {
+					
+					//task1
 					HtmlElement s = (HtmlElement) e.getFirstByXPath(".//td[contains(@align,'center')]");
 					Section section = createSection(c,s.asText());
-					addSlot(e, c, false);
 					addSectionSlot(e,section,false);
+					//end
+					
+					addSlot(e, c, false);
 					e = (HtmlElement)e.getNextSibling();
 					if (e != null && !e.getAttribute("class").contains("newsect")) {
 						addSlot(e, c, true);
+						//task1
+						
 						addSectionSlot(e,section,true);
 					}
 					if(section != null)
 						c.addSection(section);
-				}
+				}		//end
 				
 				result.add(c);
 			}
