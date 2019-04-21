@@ -3,11 +3,11 @@ package comp3111.coursescraper;
 
 
 public class Course {
-	private static final int DEFAULT_MAX_SLOT = 20;
+	private static final int DEFAULT_MAX_SLOT = 50;
 	
 	//Task 1
-	private static final int DEFAULT_MAX_Section =10;
-	private static final int DEFAULT_MAX_Instructor =10;
+	private static final int DEFAULT_MAX_Section =50;
+	private static final int DEFAULT_MAX_Instructor =50;
 	//end
 	
 	private String title ; 
@@ -19,8 +19,8 @@ public class Course {
 	//Task 1
 	private Section [] sections;
 	private int numSections;
-	private String[] instructors;
-	private int numInstructor;
+	private String [] instructors;
+	private int numInstructors;
 	//end
 	
 	public Course() {
@@ -33,8 +33,8 @@ public class Course {
 		for (int i = 0; i < DEFAULT_MAX_Section; i++) sections[i] = null;
 		numSections = 0;
 		instructors = new String[DEFAULT_MAX_Instructor];
-		for (int i = 0; i < DEFAULT_MAX_Instructor; i++) sections[i] = null;
-		numSections = 0;
+		for (int i = 0; i < DEFAULT_MAX_Instructor; i++) instructors[i] = null;
+		numInstructors = 0;
 		//end
 		
 	}
@@ -59,6 +59,16 @@ public class Course {
 	public Section getSection(int i) {
 		if (i >= 0 && i < numSections)
 			return sections[i];
+		return null;
+	}
+	public void addInstructor(String i) {
+		if(numInstructors>=DEFAULT_MAX_Instructor)
+			return;
+		instructors[numInstructors++] = i;
+	}
+	public String getInstructor(int i) {
+		if (i >= 0 && i < numInstructors)
+			return instructors[i];
 		return null;
 	}
 	//end
@@ -119,6 +129,12 @@ public class Course {
 	public int getNumSection() {
 		return numSections;
 	}
+	/**
+	 * @return the numInstructors
+	 */
+	public int getNumIstructor() {
+		return numInstructors;
+	}
 	//end
 	
 	/**
@@ -134,6 +150,13 @@ public class Course {
 	//task1//
 	public void setNumSections(int numSections) {
 		this.numSections = numSections;
+	}
+	
+	/**
+	 * @param numInstructor the numInstructor to set
+	 */
+	public void setNumInstructors(int numInstructors) {
+		this.numInstructors = numInstructors;
 	}
 	//end
 	
