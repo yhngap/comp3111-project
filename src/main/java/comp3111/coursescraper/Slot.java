@@ -26,7 +26,7 @@ public class Slot {
 		s.end = this.end;
 		s.venue = this.venue;
 		return s;
-	}
+	}  
 	public String toString() {
 		return DAYS[day] + start.toString() + "-" + end.toString() + ":" + venue;
 	}
