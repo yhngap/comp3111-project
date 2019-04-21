@@ -87,7 +87,7 @@ public class Scraper {
 		client.getOptions().setJavaScriptEnabled(false);
 	}
 
-	private void addSlot(HtmlElement e, Course c, boolean secondRow) {
+	private void addSlot(HtmlElement e, Course c, boolean secondRow, String [] name, int nameIndex) {
 		String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
 		String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
 		if (times[0].equals("TBA"))
@@ -101,6 +101,10 @@ public class Scraper {
 			s.setStart(times[1]);
 			s.setEnd(times[3]);
 			s.setVenue(venue);
+
+			for(int i = 0; i < nameIndex; i++) {
+				s.addInstructor(name[i]);
+			}
 			c.addSlot(s);
 		}
 	}
@@ -130,6 +134,8 @@ public class Scraper {
 	
 	//task1
 	private void addInstruction(Course c, String name) {
+		c.addInstructor(name);
+		
 	}
 	//end
 	
@@ -185,21 +191,63 @@ public class Scraper {
 				}
 				c.setExclusion((exclusion == null ? "null" : exclusion.asText()));
 				
+				//task1 get instructors for course
+				List<?> instructorslist = (List<?>) htmlItem.getByXPath(".//tr[contains(@class,'newsect')]");
+				for ( HtmlElement e : (List<HtmlElement>)instructorslist) {
+					List<?> namelist = (List<?>) htmlItem.getByXPath(".//a[contains(@href,'/wcq/cgi-bin/1830/instructor/')]");
+					for( int z = 0; z < namelist.size(); z++) {
+						HtmlElement name = (HtmlElement) namelist.get(z);
+						int repeat = 0;
+						if(name!=null) {
+							if(c.getNumIstructor()==0) {
+								c.addInstructor(name.asText());
+							}
+							else {
+								for(int j = 0; j < c.getNumIstructor(); j++ ) {
+									if(c.getInstructor(j).equals(name.asText())) {
+										repeat = 1; 
+									}
+								}
+								if(repeat == 0)
+									c.addInstructor(name.asText());
+							}
+						}
+					}
+				}				
+				//end
+				
 				List<?> sections = (List<?>) htmlItem.getByXPath(".//tr[contains(@class,'newsect')]");
 				for ( HtmlElement e: (List<HtmlElement>)sections) {
 					
 					//task1
+					String [] names = new String[20];
+					int nameIndex = 0;
+					List<?> namelist = (List<?>) e.getByXPath(".//a[contains(@href,'/wcq/cgi-bin/1830/instructor/')]");
+					for( int z = 0; z < namelist.size(); z++) {
+						HtmlElement name = (HtmlElement) namelist.get(z);
+						names[nameIndex]=name.asText();
+						nameIndex += 1;	
+					}
+					
+//					while(n!=null) {
+//						names[nameIndex]=n.asText();
+//						nameIndex+=1;
+//						n=(HtmlElement)n.getNextSibling();
+//					}
+//					names[0]=n.asText();
+//					nameIndex +=1;
+					
 					HtmlElement s = (HtmlElement) e.getFirstByXPath(".//td[contains(@align,'center')]");
 					Section section = createSection(c,s.asText());
 					addSectionSlot(e,section,false);
 					//end
 					
-					addSlot(e, c, false);
+					addSlot(e, c, false,names,nameIndex);
 					e = (HtmlElement)e.getNextSibling();
 					if (e != null && !e.getAttribute("class").contains("newsect")) {
-						addSlot(e, c, true);
-						//task1
+						addSlot(e, c, true,names,nameIndex);
 						
+						//task1
 						addSectionSlot(e,section,true);
 					}
 					if(section != null)
