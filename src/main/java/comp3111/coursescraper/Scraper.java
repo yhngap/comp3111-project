@@ -105,7 +105,7 @@ public class Scraper {
 		}
 	}
 	
-		private void addSectionSlot(HtmlElement e, Section sec, boolean secondRow) {
+	private void addSectionSlot(HtmlElement e, Section sec, boolean secondRow) {
 			String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
 			String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
 			if (times[0].equals("TBA"))
@@ -125,10 +125,11 @@ public class Scraper {
 				sec.addSlot(s);
 			}	
 	}
+	private void addInstruction(Course c, String name) {
+	}
 	
 	private	Section createSection( Course c,String section) {
 		int type;
-		System.out.println(section);
 		if(section.substring(0,2).equals("LA")) {
 			type=2;
 		}
@@ -152,9 +153,10 @@ public class Scraper {
 			
 			HtmlPage page = client.getPage(baseurl + "/" + term + "/subject/" + sub);
 
-			
 			List<?> items = (List<?>) page.getByXPath("//div[@class='course']");
-			
+			if(items.isEmpty()) {
+				return null;
+			}
 			Vector<Course> result = new Vector<Course>();
 
 			for (int i = 0; i < items.size(); i++) {

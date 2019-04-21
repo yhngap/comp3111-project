@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 import java.util.List;
 public class Controller {
-
     @FXML
     private Tab tabMain;
 
@@ -40,9 +39,6 @@ public class Controller {
     private Tab tabStatistic;
 
     @FXML
-    private ComboBox<?> comboboxTimeSlot;
-
-    @FXML
     private Tab tabFilter;
 
     @FXML
@@ -58,6 +54,9 @@ public class Controller {
     private ProgressBar progressbar;
 
     @FXML
+    private Tab tabSfq;
+
+    @FXML
     private TextField textfieldSfqUrl;
 
     @FXML
@@ -68,6 +67,7 @@ public class Controller {
 
     @FXML
     private TextArea textAreaConsole;
+
     
     private Scraper scraper = new Scraper();
     
@@ -88,11 +88,18 @@ public class Controller {
 
     @FXML
     void search() {
+    	textAreaConsole.clear();
+    	int courseCount = 0;
+    	int sectionCount = 0;
     	List<Course> v = scraper.scrape(textfieldURL.getText(), textfieldTerm.getText(),textfieldSubject.getText());
+    	if(v==null) {
+    		textAreaConsole.setText("There is not class information. Make sure you enter correct information for search");
+    		return;
+    	}
     	for (Course c : v) {
+    		courseCount +=1;
+    		sectionCount += c.getNumSection();
     		String newline = c.getTitle() + "\n";
-    		System.out.println(newline);
-    		System.out.println(c.getNumSection());
     		for (int j = 0; j < c.getNumSection(); j++) {
     			String s = c.getSection(j).getSectionCode();
     		for (int i = 0; i < c.getSection(j).getNumSlots(); i++) {
@@ -103,6 +110,13 @@ public class Controller {
     		}
     		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
     	}
+    	textAreaConsole.setText("Total Number of difference sections in this search: " + sectionCount +
+    							"\nTotal Number of Course in this search: " + courseCount + 
+    							"\nInstructors who has teaching assignment this term but does not need to teach at Tu 3:10pm: "
+    							+ textAreaConsole.getText());
+
+
+    	
     	
     	//Add a random block on Saturday
     	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
