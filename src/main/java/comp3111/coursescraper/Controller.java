@@ -85,11 +85,12 @@ public class Controller {
     private Scraper scraper = new Scraper();
     
     // List: List element (task 3)
-    @FXML private TableView<TableList> tableView = new TableView<TableList>();
+    @FXML private TableView<TableList> tableView; //= new TableView<TableList>();
     @FXML private TableColumn<TableList, String> tCourseCode = new TableColumn<TableList, String> ();
     @FXML private TableColumn<TableList, String> tLectureSection = new TableColumn<TableList, String> ();
     @FXML private TableColumn<TableList, String> tCourseName = new TableColumn<TableList, String> ();
     @FXML private TableColumn<TableList, String> tInstructor = new TableColumn<TableList, String> ();
+    @FXML private TableColumn<TableList, CheckBox> tEnroll = new TableColumn<TableList, CheckBox> ();
     
 	@FXML 																			         // Associate data with Columns
 	private void initialize() {
@@ -97,6 +98,7 @@ public class Controller {
 		tLectureSection.setCellValueFactory(new PropertyValueFactory<TableList,String>("sections"));
 		tCourseName.setCellValueFactory(new PropertyValueFactory<TableList,String>("CourseName"));
 		tInstructor.setCellValueFactory(new PropertyValueFactory<TableList,String>("instructors"));
+		tEnroll.setCellValueFactory(new PropertyValueFactory<TableList,CheckBox>("enroll"));
 	}
 	
 	
@@ -216,9 +218,10 @@ public class Controller {
     	
     	int i = 0;
     	
-    	final ObservableList<TableList> data = FXCollections.observableArrayList();
+    	ObservableList<TableList> data = FXCollections.observableArrayList();
     	TableList [] ScrappedResult = new TableList[sectionCount];
-    	
+    	data.add(new TableList("test","test","test","test"));
+    	tableView.setItems(data);
     	for(int u = 0;  u < sectionCount; u++) {
     		ScrappedResult[u] = new TableList();
     	}
@@ -228,13 +231,11 @@ public class Controller {
     	for (Course c: v) {
     		for (int k = 0 ; k < c.getNumSection(); k++) {
     			String InstructorTotal = "";
+    			CheckBox cb = new CheckBox("i");
     			c.setCourseCode(c.getTitle());
     			c.setCourseName(c.getTitle());
     			c.setfirstSectionCode(c.getSection(k).getSectionCode());
-    			System.out.println("c.getCourseCode() = " + c.getCourseCode());
-    			System.out.println("c.getCourseName() = " + c.getCourseName());
-    			System.out.println("c.getfirstSection() = " + c.getfirstSectionCode());
-
+    			ScrappedResult[i+k].setCheckBox(cb);
          		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
         		ScrappedResult[i+k].setCourseName(c.getCourseName());
         		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
