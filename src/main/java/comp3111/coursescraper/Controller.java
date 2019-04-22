@@ -70,6 +70,23 @@ public class Controller {
     private Tab tabSfq;
 
     @FXML
+    private TableView<TableList> tableView;
+
+    @FXML
+    private TableColumn<TableList, String> tCourseCode;
+
+    @FXML
+    private TableColumn<TableList, String> tLectureSection;
+
+    @FXML
+    private TableColumn<TableList, String> tCourseName;
+
+    @FXML
+    private TableColumn<TableList, String> tInstructor;
+
+    @FXML
+    private TableColumn<TableList, String> tEnroll;
+    @FXML
     private TextField textfieldSfqUrl;
 
     @FXML
@@ -85,24 +102,29 @@ public class Controller {
     private Scraper scraper = new Scraper();
     
     // List: List element (task 3)
-    @FXML private TableView<TableList> tableView; //= new TableView<TableList>();
-    @FXML private TableColumn<TableList, String> tCourseCode = new TableColumn<TableList, String> ();
-    @FXML private TableColumn<TableList, String> tLectureSection = new TableColumn<TableList, String> ();
-    @FXML private TableColumn<TableList, String> tCourseName = new TableColumn<TableList, String> ();
-    @FXML private TableColumn<TableList, String> tInstructor = new TableColumn<TableList, String> ();
-    @FXML private TableColumn<TableList, CheckBox> tEnroll = new TableColumn<TableList, CheckBox> ();
+//    @FXML private TableView<TableList> tableView = new TableView<TableList>();
+//    @FXML private TableColumn<TableList, String> tCourseCode = new TableColumn<TableList, String> ();
+//    @FXML private TableColumn<TableList, String> tLectureSection = new TableColumn<TableList, String> ();
+//    @FXML private TableColumn<TableList, String> tCourseName = new TableColumn<TableList, String> ();
+//    @FXML private TableColumn<TableList, String> tInstructor = new TableColumn<TableList, String> ();
+//    @FXML private TableColumn<TableList, CheckBox> tEnroll = new TableColumn<TableList, CheckBox> ();
     
 	@FXML 																			         // Associate data with Columns
 	private void initialize() {
+		
+		
 		tCourseCode.setCellValueFactory(new PropertyValueFactory<TableList,String>("CourseCode"));
 		tLectureSection.setCellValueFactory(new PropertyValueFactory<TableList,String>("sections"));
 		tCourseName.setCellValueFactory(new PropertyValueFactory<TableList,String>("CourseName"));
 		tInstructor.setCellValueFactory(new PropertyValueFactory<TableList,String>("instructors"));
-		tEnroll.setCellValueFactory(new PropertyValueFactory<TableList,CheckBox>("enroll"));
+		tEnroll.setCellValueFactory(new PropertyValueFactory<TableList,String>("enroll"));
 	}
-	
-	
-	
+//	task4 ---------------------when something is click on update time table 
+	@FXML
+	void userClickedOnTable() {
+		
+	}
+//   task4 end -----------------------------------
 	
     @FXML
     void allSubjectSearch() {
@@ -218,10 +240,9 @@ public class Controller {
     	
     	int i = 0;
     	
-    	ObservableList<TableList> data = FXCollections.observableArrayList();
+    	final ObservableList<TableList> data = FXCollections.observableArrayList();
     	TableList [] ScrappedResult = new TableList[sectionCount];
-    	data.add(new TableList("test","test","test","test"));
-    	tableView.setItems(data);
+    	
     	for(int u = 0;  u < sectionCount; u++) {
     		ScrappedResult[u] = new TableList();
     	}
@@ -231,11 +252,11 @@ public class Controller {
     	for (Course c: v) {
     		for (int k = 0 ; k < c.getNumSection(); k++) {
     			String InstructorTotal = "";
-    			CheckBox cb = new CheckBox("i");
+//    			CheckBox cb = new CheckBox("i");
     			c.setCourseCode(c.getTitle());
     			c.setCourseName(c.getTitle());
     			c.setfirstSectionCode(c.getSection(k).getSectionCode());
-    			ScrappedResult[i+k].setCheckBox(cb);
+//    			ScrappedResult[i+k].setSelect(cb);
          		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
         		ScrappedResult[i+k].setCourseName(c.getCourseName());
         		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
@@ -267,17 +288,40 @@ public class Controller {
     	Random r = new Random();
     	double start = (r.nextInt(10) + 1) * 20 + 40;
     	double opacit=0.55;
-    	randomLabel.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-    	randomLabel.setLayoutX(600.0);
-    	randomLabel.setLayoutY(start);
+    	double [][] color = {
+    			{1,0,0},
+    			{0.5,0.5,0.5},
+    			{0,1,0},
+    			{0.5,0,0.5},
+    			{0,0,1}
+    	};
+    	randomLabel.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
+    	randomLabel.setLayoutX(602.0);
+    	randomLabel.setLayoutY(220);
     	randomLabel.setMinWidth(100.0);
     	randomLabel.setMaxWidth(100.0);
     	randomLabel.setMinHeight(60);
     	randomLabel.setMaxHeight(60);
     	randomLabel.setOpacity(0.55);
-    	ap.getChildren().addAll(randomLabel);
-    	
-    	
+    	ap.getChildren().add(randomLabel);
+//    	c.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
+
+    	Label [] listLabel = new Label[5];
+    	for(int l = 0; l < 5; l++) {
+    		listLabel[l]=null;
+    	}
+    	for(int l = 0; l < 5; l++) {
+    		listLabel[l] = new Label("value");    		//value = courseCode + sectionCode
+    		listLabel[l].setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
+//    		listLabel[l].setLayoutX(value);				//	value = day*100+2
+//    		listLabel[1].setLayoutY(value); 			// value = 40+ 20*(Hour-9)+minutes/3
+    		listLabel[1].setMinWidth(100.0);
+    		listLabel[1].setMaxWidth(100.0);
+//    		listLabel[1].setMinHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
+//    		listLabel[1].setMaxHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
+    		listLabel[1].setOpacity(0.55);
+//    		ap.getChildren().add(listLabel[1]);			
+    	}
     	
     }
 

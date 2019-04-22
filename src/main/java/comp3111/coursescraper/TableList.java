@@ -5,7 +5,7 @@ public class TableList {
 	private String CourseName;
 	private String instructors;
 	private String sections;
-	CheckBox enroll;
+	private CheckBox enroll;
 	
 	
 	TableList (String CC, String CN, String Ins, String Sec) {
@@ -13,7 +13,7 @@ public class TableList {
 		this.CourseName = CN;
 		this.instructors = Ins;
 		this.sections = Sec;
-		this.enroll = new CheckBox("" + 1);
+		this.enroll = new CheckBox();
 	}
 	
 	TableList () {
@@ -23,11 +23,11 @@ public class TableList {
 		this.sections = null;
 	}
 	
-	public CheckBox getCheckBox() {
+	public CheckBox getSelect() {
 		return enroll;
 	}
 	
-	public void setCheckBox(CheckBox S) {
+	public void setSelect(CheckBox S) {
 		this.enroll = S;
 	}
 	
