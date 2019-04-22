@@ -13,6 +13,13 @@ public class TableList {
 		this.sections = Sec;
 	}
 	
+	TableList () {
+		this.CourseCode = null;
+		this.CourseName = null;
+		this.instructors = null;
+		this.sections = null;
+	}
+	
 	public String getCourseCode() {
 		return CourseCode;
 	}

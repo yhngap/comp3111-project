@@ -85,18 +85,18 @@ public class Controller {
     private Scraper scraper = new Scraper();
     
     // List: List element (task 3)
-    @FXML private TableView<Course> tableView = new TableView<Course>();
-    @FXML private TableColumn<Course, String> tCourseCode = new TableColumn<Course, String> ();
-    @FXML private TableColumn<Course, String> tLectureSection = new TableColumn<Course, String> ();
-    @FXML private TableColumn<Course, String> tCourseName = new TableColumn<Course, String> ();
-    @FXML private TableColumn<Course, String> tInstructor = new TableColumn<Course, String> ();
+    @FXML private TableView<TableList> tableView = new TableView<TableList>();
+    @FXML private TableColumn<TableList, String> tCourseCode = new TableColumn<TableList, String> ();
+    @FXML private TableColumn<TableList, String> tLectureSection = new TableColumn<TableList, String> ();
+    @FXML private TableColumn<TableList, String> tCourseName = new TableColumn<TableList, String> ();
+    @FXML private TableColumn<TableList, String> tInstructor = new TableColumn<TableList, String> ();
     
 	@FXML 																			         // Associate data with Columns
 	private void initialize() {
-		tCourseCode.setCellValueFactory(new PropertyValueFactory<Course,String>("CourseCode"));
-		tLectureSection.setCellValueFactory(new PropertyValueFactory<Course,String>("firstSectionCode"));
-		tCourseName.setCellValueFactory(new PropertyValueFactory<Course,String>("CourseName"));
-//		tInstructor.setCellValueFactory(new PropertyValueFactory<Course,String>("instructors"));
+		tCourseCode.setCellValueFactory(new PropertyValueFactory<TableList,String>("CourseCode"));
+		tLectureSection.setCellValueFactory(new PropertyValueFactory<TableList,String>("sections"));
+		tCourseName.setCellValueFactory(new PropertyValueFactory<TableList,String>("CourseName"));
+		tInstructor.setCellValueFactory(new PropertyValueFactory<TableList,String>("instructors"));
 	}
 	
 	
@@ -210,39 +210,51 @@ public class Controller {
     	//task 1  end------------------------------------------------------------------------------------
     	
     	// Task 3 
-//
-//    	// ScrappedResult for table to use;
-//    	
-//    	Course [] ScrappedResult = new Course [courseCount];							     //
-//    	
-//    	int i = 0;
-//    	
-//    	for (Course c: v) {
-//    		for(int k = 0;k<c.getNumSection();k++ ) {
-//    		ScrappedResult[i].setCourseCode(c.getCourseCode());
-//    		ScrappedResult[i].setCourseName(c.getCourseName());
-//    		for (int l = 0; l < c.getSection(k).getNumSlots(); l++){
-//    			for (int zz = 0; zz < c.getSection(k).getSlot(l).getNumInstructors(); zz++) {
-//    				ScrappedResult[i].addInstructor(c.getSection(k).getSlot(l).getInstructor(zz));
-//    			}
-//    		}
-//    		ScrappedResult[i].setfirstSectionCode(c.getSection(k).getSectionCode());;
-//    		i++;
-//    		}
-//    	}
-//    	
-//    	int j = 0;
-//    	final ObservableList<Course> data = FXCollections.observableArrayList();	    	 // Define data in an Observable list   
-//    	
-//    	if (courseCount != 0) {
-//    		for (Course courses : ScrappedResult) {											 // Filter result, need to wait filter result
-//        		data.add(ScrappedResult[j]);
-//        		j++; 		
-//        	}      	
-//    	}
-//
-//    	
-//    	tableView.setItems(data);                                                            // Add data inside table
+
+    	
+    	// ScrappedResult for table to use;
+    	
+    	int i = 0;
+    	
+    	final ObservableList<TableList> data = FXCollections.observableArrayList();
+    	TableList [] ScrappedResult = new TableList[sectionCount];
+    	
+    	for(int u = 0;  u < sectionCount; u++) {
+    		ScrappedResult[u] = new TableList();
+    	}
+    	
+    	System.out.println("sectionCount = " + sectionCount);
+    	System.out.println("Message for testing ");
+    	for (Course c: v) {
+    		for (int k = 0 ; k < c.getNumSection(); k++) {
+    			String InstructorTotal = "";
+    			c.setCourseCode(c.getTitle());
+    			c.setCourseName(c.getTitle());
+    			c.setfirstSectionCode(c.getSection(k).getSectionCode());
+    			System.out.println("c.getCourseCode() = " + c.getCourseCode());
+    			System.out.println("c.getCourseName() = " + c.getCourseName());
+    			System.out.println("c.getfirstSection() = " + c.getfirstSectionCode());
+
+         		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
+        		ScrappedResult[i+k].setCourseName(c.getCourseName());
+        		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
+        		for (int suibian = 0; suibian < c.getNumIstructor(); suibian++) {
+        			InstructorTotal += c.getInstructor(suibian) + " ";
+        		}
+        		ScrappedResult[i+k].setInstructors(InstructorTotal);
+    		}
+    		    		
+    		int temp = c.getNumSection();
+    		i = i + temp;
+    	} 
+    	
+    	if (sectionCount != 0) {
+    		for (int m = 0; m < sectionCount; m++) {
+    			data.add(ScrappedResult[m]);
+    		}
+    	}
+     	
+    	tableView.setItems(data);                                                            // Add data inside table
 
     	
     	
