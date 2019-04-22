@@ -125,7 +125,7 @@ public class Controller {
     	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
     	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
     	
-    	//task 1
+    	//task 1-------------------------for console displace
     	textAreaConsole.clear();
     	int courseCount = 0;
     	int sectionCount = 0;
@@ -134,19 +134,19 @@ public class Controller {
     		instructorsArray[i]=null;
     	}
     	int arrayNum = 0;
+    	//task 1.1-------------------------for checking the information of search is correct or not
     	List<Course> v = scraper.scrape(textfieldURL.getText(), textfieldTerm.getText(),textfieldSubject.getText());
     	if(v==null) {
     		textAreaConsole.setText("There is not class information. Make sure you enter correct information for search");
     		return;
     	}
-    	
-    	
+    	//1.1 end--------------------------
+    	//task 1-------------------------for getting information from scrapered course  
     	for (Course c : v) {
-    		courseCount +=1;									//get total course
-    		sectionCount += c.getNumSection();					//get total section
-    		String newline = c.getTitle() + "\n";
-    		
-
+    		courseCount +=1;									//get total course number
+    		sectionCount += c.getNumSection();					//get total section number
+    		String newline = c.getTitle() + "\n";				//get each course title 
+    	//task 1.3.c-------------------------for getting name of Instructors who has teaching assignment this term but does not need to teach at Tu 3:10pm
     		for(int i = 0; i < c.getNumSlots(); i++) {
     			if(c.getSlot(i).getEndHour()<15 || c.getSlot(i).getStartHour()>15) {
     				for(int j = 0; j < c.getSlot(i).getNumInstructors(); j++) {
@@ -169,27 +169,27 @@ public class Controller {
         			}
     			}
     		}
-    		
+    	//taks1.3.c  end-----------------------
+    	//task 1.2-------------------------for getting the section and slots information of courses
     		for (int j = 0; j < c.getNumSection(); j++) {
-    			String s = c.getSection(j).getSectionCode();
-    			
-    		for (int i = 0; i < c.getSection(j).getNumSlots(); i++) {
-    			Slot t = c.getSection(j).getSlot(i);
-    			newline += s + ":" + t + "\n";
-    		}
+    			String s = c.getSection(j).getSectionCode();	
+	    		for (int i = 0; i < c.getSection(j).getNumSlots(); i++) {
+	    			Slot t = c.getSection(j).getSlot(i);
+	    			newline += s + ":" + t + "\n";
+	    		}
     		}
     		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
     	}
+    	//task1.2 end --------------------------
+    	//task 1.3.c.a-------------------------for rearranging the instructor name
 		String [] newArray = new String[arrayNum];
 		for(int i =0; i<arrayNum;i++) {
 			newArray[i]=instructorsArray[i];
 		}
 		Arrays.sort(newArray);
-		String names = newArray[0] + ",\n";
+		String names = "\n";
 		int spaceIndex = 0;
-//    	Arrays.sort(instructorsArray);
-//    	System.out.println(Arrays.toString(instructorsArray));
-    	for(int i = 1;i<arrayNum;i++) {
+    	for(int i = 0;i<arrayNum;i++) {
     		names = names + newArray[i]+",\t  ";
     		spaceIndex +=1;
     		if(spaceIndex == 5) {
@@ -197,13 +197,15 @@ public class Controller {
     			spaceIndex-=5;
     		}
     	}
+    	//task 1.3.c.a end -----------------------------
+    	//task 1-------------------------for showing all information required by task 1 in the console
     	textAreaConsole.setText("Total Number of difference sections in this search: " + sectionCount +
     							"\nTotal Number of Course in this search: " + courseCount + 
     							"\nInstructors who has teaching assignment this term but does not need to teach at Tu 3:10pm: "
     							+ names +"\n"
     							+ textAreaConsole.getText());
     	
-    	//end
+    	//task 1  end------------------------------------------------------------------------------------
     	
     	// Task 3 
     	

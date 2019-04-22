@@ -20,14 +20,12 @@ public class Course {
 	private String CourseName;
 	private String firstSectionCode;
 	
-	//Task 1
+	//Task 1.1------------------------------sections and instructors container and number of section/instruction in course
 	private Section [] sections;
 	private int numSections;
 	private String [] instructors;
-
 	private int numInstructors;
-
-	//end
+	//task1.1 end----------------------------
 	
 
 	public Course() {
@@ -35,14 +33,14 @@ public class Course {
 		for (int i = 0; i < DEFAULT_MAX_SLOT; i++) slots[i] = null;
 		numSlots = 0;
 		
-		//Task 1//
+		//Task 1.2----------------------------section and instructor container initialization
 		sections = new Section[DEFAULT_MAX_Section];
 		for (int i = 0; i < DEFAULT_MAX_Section; i++) sections[i] = null;
 		numSections = 0;
 		instructors = new String[DEFAULT_MAX_Instructor];
 		for (int i = 0; i < DEFAULT_MAX_Instructor; i++) instructors[i] = null;
 		numInstructors = 0;
-		//end
+		//task 1.2 end-------------------------- 
 		
 	}
 	
@@ -57,7 +55,7 @@ public class Course {
 		return null;
 	}
 	
-	//task1//
+	//task 1.3 ------------------------------add and get section/instruction function
 	public void addSection(Section s) {
 		if (numSections >= DEFAULT_MAX_Section)
 			return;
@@ -78,7 +76,7 @@ public class Course {
 			return instructors[i];
 		return null;
 	}
-	//end
+	//task 1.3 end -------------------------------
 	
 	/**
 	 * @return the title
@@ -158,7 +156,7 @@ public class Course {
 	 * @return the numSections
 	 */
 	
-	//task1//
+	//task 1.4 --------------------------- get number of section and instructors
 	public int getNumSection() {
 		return numSections;
 	}
@@ -168,7 +166,7 @@ public class Course {
 	public int getNumIstructor() {
 		return numInstructors;
 	}
-	//end
+	//task 1.4 end ------------------------------
 	
 	/**
 	 * @param numSlots the numSlots to set
@@ -180,7 +178,7 @@ public class Course {
 	 * @param numSections the numSections to set
 	 */
 	
-	//task1//
+	//task 1.5------------------------------------ set number of sections and instructors
 	public void setNumSections(int numSections) {
 		this.numSections = numSections;
 	}
@@ -191,7 +189,7 @@ public class Course {
 	public void setNumInstructors(int numInstructors) {
 		this.numInstructors = numInstructors;
 	}
-	//end
+	//task 1.5 end---------------------------------
 	
 	// Task 3
 	Course(String a, String b, String c, String d) {

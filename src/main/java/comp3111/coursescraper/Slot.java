@@ -12,8 +12,10 @@ public class Slot {
 	private LocalTime start;
 	private LocalTime end;
 	private String venue;
+	//task 1.3.1----------------------------new data member for store instructors' name
 	private String [] instructors;
 	private int numInstructors;
+	//task 1.3.1 end---------------------------
 	public static final String DAYS[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa"};
 	public static final Map<String, Integer> DAYS_MAP = new HashMap<String, Integer>();
 	static {
@@ -103,7 +105,7 @@ public class Slot {
 	public void setDay(int day) {
 		this.day = day;
 	}
-	//task1
+	//task 1.3 ----------------------- add,set,get the number of instructors and instructors' name by index
 	/**
 	 * @param numInstructors the numInstructors to set
 	 */
@@ -117,15 +119,22 @@ public class Slot {
 	public int getNumInstructors() {
 		return this.numInstructors;
 	}
+	/**
+	 * @param string name to add the name into instructor list
+	 */
 	public void addInstructor(String i) {
 		if(numInstructors>=DEFAULT_MAX_Instructor)
 			return;
 		instructors[numInstructors++] = i;
 	}
+	/**
+	 * @param Instructors index to get instructor's name
+	 * @return name of instructor
+	 */
 	public String getInstructor(int i) {
 		if (i >= 0 && i < numInstructors)
 			return instructors[i];
 		return null;
 	}
-	//end
+	//task 1.3 end---------------------------
 }
