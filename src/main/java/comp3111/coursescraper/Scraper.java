@@ -109,7 +109,7 @@ public class Scraper {
 		}
 	}
 	
-	//task1
+	//task 1.2.1-------------------------for adding the slot into corresponding section
 	private void addSectionSlot(HtmlElement e, Section sec, boolean secondRow) {
 			String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
 			String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
@@ -130,16 +130,9 @@ public class Scraper {
 				sec.addSlot(s);
 			}	
 	}
-	//end
+	//task 1.2.1 end-------------------------
 	
-	//task1
-	private void addInstruction(Course c, String name) {
-		c.addInstructor(name);
-		
-	}
-	//end
-	
-	//task1
+	//task 1.2.2-------------------------for adding section to related course 
 	private	Section createSection( Course c,String section) {
 		int type;
 		if(section.substring(0,2).equals("LA")) {
@@ -159,7 +152,7 @@ public class Scraper {
 		s.setsectionType(type);
 		return s;
 	}
-	//end
+	//task 1.2.2 end--------------------------------
 	
 	public List<Course> scrape(String baseurl, String term, String sub) {
 
@@ -196,7 +189,7 @@ public class Scraper {
 				}
 				c.setExclusion((exclusion == null ? "null" : exclusion.asText()));
 				
-				//task1 get instructors for course
+				//task 1.3.c.1-------------------------for scraping instructors's name from web into related course
 				List<?> instructorslist = (List<?>) htmlItem.getByXPath(".//tr[contains(@class,'newsect')]");
 				for ( HtmlElement e : (List<HtmlElement>)instructorslist) {
 					List<?> namelist = (List<?>) htmlItem.getByXPath(".//a[contains(@href,'/wcq/cgi-bin/1830/instructor/')]");
@@ -219,12 +212,12 @@ public class Scraper {
 						}
 					}
 				}				
-				//end
+				//task 1.3.c.1 end----------------------------
 				
 				List<?> sections = (List<?>) htmlItem.getByXPath(".//tr[contains(@class,'newsect')]");
 				for ( HtmlElement e: (List<HtmlElement>)sections) {
 					
-					//task1
+					//task 1-------------------------for obtaining the information of course from web
 					String [] names = new String[20];
 					int nameIndex = 0;
 					List<?> namelist = (List<?>) e.getByXPath(".//a[contains(@href,'/wcq/cgi-bin/1830/instructor/')]");
@@ -233,32 +226,19 @@ public class Scraper {
 						names[nameIndex]=name.asText();
 						nameIndex += 1;	
 					}
-					
-//					while(n!=null) {
-//						names[nameIndex]=n.asText();
-//						nameIndex+=1;
-//						n=(HtmlElement)n.getNextSibling();
-//					}
-//					names[0]=n.asText();
-//					nameIndex +=1;
-					
 					HtmlElement s = (HtmlElement) e.getFirstByXPath(".//td[contains(@align,'center')]");
 					Section section = createSection(c,s.asText());
 					addSectionSlot(e,section,false);
-					//end
-					
 					addSlot(e, c, false,names,nameIndex);
 					e = (HtmlElement)e.getNextSibling();
 					if (e != null && !e.getAttribute("class").contains("newsect")) {
 						addSlot(e, c, true,names,nameIndex);
-						
-						//task1
 						addSectionSlot(e,section,true);
 					}
 					if(section != null)
 						c.addSection(section);
-				}		//end
-				
+				}
+					//task 1 end----------------------
 				result.add(c);
 			}
 			client.close();
