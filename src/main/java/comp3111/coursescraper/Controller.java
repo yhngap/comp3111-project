@@ -143,42 +143,44 @@ public class Controller {
     	//1.1 end--------------------------
     	//task 1-------------------------for getting information from scrapered course  
     	for (Course c : v) {
-    		courseCount +=1;									//get total course number
-    		sectionCount += c.getNumSection();					//get total section number
-    		String newline = c.getTitle() + "\n";				//get each course title 
-    	//task 1.3.c-------------------------for getting name of Instructors who has teaching assignment this term but does not need to teach at Tu 3:10pm
-    		for(int i = 0; i < c.getNumSlots(); i++) {
-    			if(c.getSlot(i).getEndHour()<15 || c.getSlot(i).getStartHour()>15) {
-    				for(int j = 0; j < c.getSlot(i).getNumInstructors(); j++) {
-    					boolean contains = Arrays.stream(instructorsArray).anyMatch(c.getSlot(i).getInstructor(j)::equals);
-    					if(!contains) {
-    						instructorsArray[arrayNum] = c.getSlot(i).getInstructor(j);
-        					arrayNum += 1;
-    					}
-    				}
-    			}
-    			else if(c.getSlot(i).getEndHour()==15) {
-        			if(c.getSlot(i).getEndMinute() < 10 || c.getSlot(i).getStartMinute()>10) {
-        				for(int j = 0; j < c.getSlot(i).getNumInstructors(); j++) {
-        					boolean contains = Arrays.stream(instructorsArray).anyMatch(c.getSlot(i).getInstructor(j)::equals);
-        					if(!contains) {
-        						instructorsArray[arrayNum] = c.getSlot(i).getInstructor(j);
-            					arrayNum += 1;
-        					}
-        				}
-        			}
-    			}
-    		}
-    	//taks1.3.c  end-----------------------
-    	//task 1.2-------------------------for getting the section and slots information of courses
-    		for (int j = 0; j < c.getNumSection(); j++) {
-    			String s = c.getSection(j).getSectionCode();	
-	    		for (int i = 0; i < c.getSection(j).getNumSlots(); i++) {
-	    			Slot t = c.getSection(j).getSlot(i);
-	    			newline += s + ":" + t + "\n";
+	    		if(c.getNumSection() !=0) {
+	    		courseCount +=1;									//get total course number
+	    		sectionCount += c.getNumSection();					//get total section number
+	    		String newline = c.getTitle() + "\n";				//get each course title 
+	    	//task 1.3.c-------------------------for getting name of Instructors who has teaching assignment this term but does not need to teach at Tu 3:10pm
+	    		for(int i = 0; i < c.getNumSlots(); i++) {
+	    			if(c.getSlot(i).getEndHour()<15 || c.getSlot(i).getStartHour()>15) {
+	    				for(int j = 0; j < c.getSlot(i).getNumInstructors(); j++) {
+	    					boolean contains = Arrays.stream(instructorsArray).anyMatch(c.getSlot(i).getInstructor(j)::equals);
+	    					if(!contains) {
+	    						instructorsArray[arrayNum] = c.getSlot(i).getInstructor(j);
+	        					arrayNum += 1;
+	    					}
+	    				}
+	    			}
+	    			else if(c.getSlot(i).getEndHour()==15) {
+	        			if(c.getSlot(i).getEndMinute() < 10 || c.getSlot(i).getStartMinute()>10) {
+	        				for(int j = 0; j < c.getSlot(i).getNumInstructors(); j++) {
+	        					boolean contains = Arrays.stream(instructorsArray).anyMatch(c.getSlot(i).getInstructor(j)::equals);
+	        					if(!contains) {
+	        						instructorsArray[arrayNum] = c.getSlot(i).getInstructor(j);
+	            					arrayNum += 1;
+	        					}
+	        				}
+	        			}
+	    			}
 	    		}
-    		}
-    		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
+	    	//taks1.3.c  end-----------------------
+	    	//task 1.2-------------------------for getting the section and slots information of courses
+	    		for (int j = 0; j < c.getNumSection(); j++) {
+	    			String s = c.getSection(j).getSectionCode();	
+		    		for (int i = 0; i < c.getSection(j).getNumSlots(); i++) {
+		    			Slot t = c.getSection(j).getSlot(i);
+		    			newline += s + ":" + t + "\n";
+		    		}
+	    		}
+	    		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
+	    	}
     	}
     	//task1.2 end --------------------------
     	//task 1.3.c.a-------------------------for rearranging the instructor name
@@ -208,6 +210,7 @@ public class Controller {
     	//task 1  end------------------------------------------------------------------------------------
     	
     	// Task 3 
+
     	
     	// ScrappedResult for table to use;
     	
@@ -270,25 +273,10 @@ public class Controller {
     	randomLabel.setMaxWidth(100.0);
     	randomLabel.setMinHeight(60);
     	randomLabel.setMaxHeight(60);
-    
+    	randomLabel.setOpacity(0.55);
     	ap.getChildren().addAll(randomLabel);
     	
-    	//test
-    	AnchorPane ap1 = (AnchorPane)tabTimetable.getContent();
-    	Label randomLabel1 = new Label("COMP1022\nL1");
-    	Random r1 = new Random();
-    	double start1 = (r.nextInt(10) + 1) * 20 + 40;
-
-    	randomLabel1.setBackground(new Background(new BackgroundFill(Color.color(1,0, 0, 0.5), CornerRadii.EMPTY, Insets.EMPTY)));
-    	randomLabel1.setLayoutX(600.0);
-    	randomLabel1.setLayoutY(start+10);
-    	randomLabel1.setMinWidth(100.0);
-    	randomLabel1.setMaxWidth(100.0);
-    	randomLabel1.setMinHeight(60);
-    	randomLabel1.setMaxHeight(60);
-    
-    	ap.getChildren().addAll(randomLabel1);
-    	//end
+    	
     	
     }
 
