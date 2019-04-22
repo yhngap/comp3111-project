@@ -92,6 +92,10 @@ public class Scraper {
 		String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
 		if (times[0].equals("TBA"))
 			return;
+		if(venue.equals("TBA")) {
+			System.out.println(venue);
+			return;
+		}
 		for (int j = 0; j < times[0].length(); j+=2) {
 			String code = times[0].substring(j , j + 2);
 			if (Slot.DAYS_MAP.get(code) == null)
@@ -114,6 +118,8 @@ public class Scraper {
 			String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
 			String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
 			if (times[0].equals("TBA"))
+				return;
+			if(venue.equals("TBA"))
 				return;
 			if(sec == null) {
 				return;

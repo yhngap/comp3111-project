@@ -231,9 +231,6 @@ public class Controller {
     			c.setCourseCode(c.getTitle());
     			c.setCourseName(c.getTitle());
     			c.setfirstSectionCode(c.getSection(k).getSectionCode());
-    			System.out.println("c.getCourseCode() = " + c.getCourseCode());
-    			System.out.println("c.getCourseName() = " + c.getCourseName());
-    			System.out.println("c.getfirstSection() = " + c.getfirstSectionCode());
 
          		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
         		ScrappedResult[i+k].setCourseName(c.getCourseName());
@@ -276,6 +273,8 @@ public class Controller {
     	randomLabel.setOpacity(0.55);
     	ap.getChildren().addAll(randomLabel);
     	
+//    	TableColumn enroll = (TableColumn)tabList;
+//    	CheckBox cb1 = new CheckBox(" ");
     	
     	
     }
