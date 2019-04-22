@@ -94,7 +94,8 @@ public class Course {
 	
 	// Task 3
 	public void setCourseCode(String CourseCode) {
-		CourseCode = title.substring(0,10);			// Cut the Course Title to get eg:(Comp2011) 
+		
+		this.CourseCode = CourseCode.substring(0,10);			// Cut the Course Title to get eg:(Comp2011) 
 	}
 	
 	public String getCourseCode() {
@@ -102,7 +103,14 @@ public class Course {
 	}
 	
 	public void setCourseName(String CourseName) {
-		CourseName = title.substring(11);
+		if (CourseName.substring(12,13).equals(" ")) {
+			this.CourseName = CourseName.substring(13);
+		}
+		
+		else {
+			this.CourseName = CourseName.substring(12);
+		}
+		
 	}
 	
 	public String getCourseName() {
