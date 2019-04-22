@@ -243,7 +243,7 @@ public class Controller {
     		    		
     		int temp = c.getNumSection();
     		i = i + temp;
-    	}
+    	} 
     	
     	if (sectionCount != 0) {
     		for (int m = 0; m < sectionCount; m++) {
