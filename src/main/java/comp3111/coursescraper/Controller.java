@@ -152,8 +152,8 @@ public class Controller {
 				ScrappedResult[it].getEnroll().setText("");
 		// Drop Course in Table List
 				System.out.println("enrollPosF = " + enrollPos);
-				EnrollResult[it] = null;
-				EnrollResult[it] = new TableList();
+				EnrollResult[1] = null;
+				EnrollResult[1] = new TableList();
 			}
 		}
 		
@@ -162,6 +162,7 @@ public class Controller {
 				textAreaConsole.setText(ScrappedResult[im].getCourseName() + " " + ScrappedResult[im].getCourseCode() + " has been enrolled in to your course list" +  "\n");
 			}
 		}
+		
 		
     	//Add a random block on Saturday
     	AnchorPane ap = (AnchorPane)tabTimetable.getContent();

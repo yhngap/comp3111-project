@@ -140,6 +140,7 @@ public class Course {
 		this.description = description;
 	}
 
+	
 	/**
 	 * @return the exclusion
 	 */
