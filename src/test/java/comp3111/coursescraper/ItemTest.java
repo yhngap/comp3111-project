@@ -127,6 +127,7 @@ public class ItemTest {
 		Course i = new Course();
 		Slot s = new Slot();
 		i.addSlot(s);
+
 		assertEquals(i.getSlot(2),null);
 	}
 	@Test
@@ -136,13 +137,8 @@ public class ItemTest {
 		Slot s = new Slot();
 		i.addSlot(s);
 		assertEquals(i.getNumSlots(),50);
+
+		assertEquals(i.getSection(2),null);
 	}
-//	@Test
-//	public void testgetSlot2() {
-//		Course i = new Course();
-//		Slot s = new Slot();
-//		s.setVenue("A");
-//		i.addSlot(s);
-//		assertEquals(i.getSlot(1),s);
-//	}
+
 }

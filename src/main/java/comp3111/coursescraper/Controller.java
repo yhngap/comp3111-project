@@ -323,6 +323,7 @@ public class Controller {
     	}
      	
     	tableView.setItems(data);                                                            // Add data inside table
+
     }
 
 }

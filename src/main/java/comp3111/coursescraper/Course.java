@@ -198,15 +198,4 @@ public class Course {
 		this.numInstructors = numInstructors;
 	}
 	//task 1.5 end---------------------------------
-	
-	// Task 3
-	Course(String a, String b, String c, String d) {
-		this.CourseCode = a;
-		this.CourseName = c;
-		this.sections[0].setSectionCode(b);
-		this.instructors[0] = d;
-	}
-	
-	
-
 }
