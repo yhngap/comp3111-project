@@ -122,6 +122,7 @@ public class Controller {
 //	task4 ---------------------when something is click on update time table 
 	@FXML
 	void userClickedOnTable() {
+		
     	//Add a random block on Saturday
     	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
     	while(ap.getChildren().size()>29) {
