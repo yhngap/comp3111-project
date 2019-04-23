@@ -36,7 +36,6 @@ public class FxTest extends ApplicationTest {
 	}
 
 	
-
 //	@Test
 //	public void testButton() {
 //		clickOn("#tabSfq");
@@ -45,5 +44,15 @@ public class FxTest extends ApplicationTest {
 //		sleep(1000);
 //		assertTrue(b.isDisabled());
 //	}
-
+	
+	@Test
+	public void testSearchButton() {
+		clickOn("#tabMain");
+		int courseCount = 0;
+		TableList ScrappedResult [];
+		clickOn("#buttonSearch");
+		Button b = (Button)s.lookup("#buttonSearch");
+		sleep(1000);
+		courseCount = 51;
+	}
 }
