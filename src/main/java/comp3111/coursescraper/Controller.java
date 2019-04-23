@@ -150,10 +150,9 @@ public class Controller {
 		else if (ScrappedResult[it].getEnroll().isSelected() == false) {
 				ScrappedResult[it].setEnrolled(false);
 				ScrappedResult[it].getEnroll().setText("");
+
 		// Drop Course in Table List
 				System.out.println("enrollPosF = " + enrollPos);
-				EnrollResult[it] = null;
-				EnrollResult[it] = new TableList();
 			}
 		}
 		
