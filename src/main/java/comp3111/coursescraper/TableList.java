@@ -7,6 +7,7 @@ public class TableList {
 	private String instructors;
 	private String sections;
 	private CheckBox enroll;
+	private boolean enrolled;
 	
 	
 	TableList (String CC, String CN, String Ins, String Sec) {
@@ -15,6 +16,7 @@ public class TableList {
 		this.instructors = Ins;
 		this.sections = Sec;
 		this.enroll = new CheckBox();
+		this.enrolled = false;
 	}
 	TableList () {
 		this.CourseCode = null;
@@ -62,4 +64,14 @@ public class TableList {
 	public void setSections(String S) {
 		this.sections = S;
 	}
+// Enroll List	
+	public void setEnrolled(boolean a) {
+		this.enrolled = a;
+	}
+	
+	public boolean getEnrolled() {
+		return this.enrolled;
+	}
+	
+	
 }
