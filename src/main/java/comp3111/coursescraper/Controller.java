@@ -152,8 +152,8 @@ public class Controller {
 				ScrappedResult[it].getEnroll().setText("");
 		// Drop Course in Table List
 				System.out.println("enrollPosF = " + enrollPos);
-				EnrollResult[1] = null;
-				EnrollResult[1] = new TableList();
+				EnrollResult[it] = null;
+				EnrollResult[it] = new TableList();
 			}
 		}
 		
@@ -213,7 +213,6 @@ public class Controller {
 	}
 //   task4 end -----------------------------------
 	
-
 
     @FXML
     void allSubjectSearch() {
