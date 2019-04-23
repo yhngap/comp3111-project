@@ -151,6 +151,7 @@ public class Controller {
 				ScrappedResult[it].setEnrolled(false);
 				ScrappedResult[it].getEnroll().setText("");
 
+				
 		// Drop Course in Table List
 				System.out.println("enrollPosF = " + enrollPos);
 			}
