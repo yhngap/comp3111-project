@@ -31,6 +31,7 @@ import javafx.event.EventHandler;
 
 
 import java.util.Random;
+import java.util.Vector;
 import java.util.Arrays;
 import java.util.List;
 
@@ -102,13 +103,10 @@ public class Controller {
     
     
     private Scraper scraper = new Scraper();
-    
-    private int sectionCount = 0;
-    
     private TableList [] ScrappedResult = new TableList [1000];
-    private TableList [] EnrollResult = new TableList [1000];
-    private int enrollPos = 0;
-    
+    private TableList [] enrollList = new TableList [1000];
+    private int sectionCount = 0;	
+    private int numEnroll = 0;
 	@FXML 																			         // Associate data with Columns
 	private void initialize() {
 		
@@ -124,46 +122,78 @@ public class Controller {
 //	task4 ---------------------when something is click on update time table 
 	@FXML
 	void userClickedOnTable() {		
-		textAreaConsole.clear();
-		enrollPos = 0;
-		
 		// Task 3 Update Enroll information 
-		for (int js = 0 ; js < 990; js++) {
-			if (EnrollResult[js].getEnrolled() != false) {
-				enrollPos++;
-				System.out.println("enrollPos = " + enrollPos);
-			}
-		}
+//		for (int js = 0 ; js < 990; js++) {
+//			if (EnrollResult[js].getEnrolled() != false) {
+//				enrollPos++;
+//				System.out.println("enrollPos = " + enrollPos);
+//			}
+//		}
 		
+//		for (int it = 0 ; it < sectionCount; it++) {
+//			if (ScrappedResult[it].getEnroll().isSelected()) {
+//				ScrappedResult[it].setEnrolled(true);
+//				ScrappedResult[it].getEnroll().setText("Enrolled");
+//		// Create and store Enroll courses to List 
+//				EnrollResult[enrollPos].setCourseCode(ScrappedResult[it].getCourseCode());
+//				EnrollResult[enrollPos].setCourseName(ScrappedResult[it].getCourseName());
+//				EnrollResult[enrollPos].setEnrolled(true);
+//				EnrollResult[enrollPos].setSections(ScrappedResult[it].getSections());
+//				EnrollResult[enrollPos].setInstructors(ScrappedResult[it].getInstructors());
+//				System.out.println("enrollPosT = " + enrollPos);
+//			}
+//		else if (ScrappedResult[it].getEnroll().isSelected() == false) {
+//				ScrappedResult[it].setEnrolled(false);
+//				ScrappedResult[it].getEnroll().setText("");
+//
+//				
+//		// Drop Course in Table List
+//				System.out.println("enrollPosF = " + enrollPos);
+//			}
+//		}
+		
+	
+//		for (int im = 0 ; im < sectionCount; im++) {
+//			if (ScrappedResult[im].getEnrolled() == true) {
+//				textAreaConsole.setText(ScrappedResult[im].getCourseName() + " " + ScrappedResult[im].getCourseCode() + " has been enrolled in to your course list" +  "\n");
+//			}
+//		}
 		for (int it = 0 ; it < sectionCount; it++) {
-			if (ScrappedResult[it].getEnroll().isSelected()) {
-				ScrappedResult[it].setEnrolled(true);
-				ScrappedResult[it].getEnroll().setText("Enrolled");
-		// Create and store Enroll courses to List 
-				EnrollResult[enrollPos].setCourseCode(ScrappedResult[it].getCourseCode());
-				EnrollResult[enrollPos].setCourseName(ScrappedResult[it].getCourseName());
-				EnrollResult[enrollPos].setEnrolled(true);
-				EnrollResult[enrollPos].setSections(ScrappedResult[it].getSections());
-				EnrollResult[enrollPos].setInstructors(ScrappedResult[it].getInstructors());
-				System.out.println("enrollPosT = " + enrollPos);
-			}
-		else if (ScrappedResult[it].getEnroll().isSelected() == false) {
-				ScrappedResult[it].setEnrolled(false);
-				ScrappedResult[it].getEnroll().setText("");
+				if (ScrappedResult[it].getEnroll().isSelected()) {
+					int noContain = 0;
+					for(int im = 0 ; im < numEnroll+1; im++) {
+						if(enrollList[im].getCourseCode()==ScrappedResult[it].getCourseCode()) {
+							noContain = 1;
+						}
+					}
+					if(noContain == 0) {
+						enrollList[numEnroll]=ScrappedResult[it];
+						numEnroll+=1;
+					}
+				}
+				else {
+					int Contain = 0;
+					for(int im = 0 ; im < numEnroll+1; im++) {
+						if(enrollList[im].getCourseCode()==ScrappedResult[it].getCourseCode()) {
+							for(int i = im; i < numEnroll-1; numEnroll ++) {
+								enrollList[i]=enrollList[i+1];
+							}
+							enrollList[numEnroll]=new TableList();
+							numEnroll-=1;
+						}
+					}
+				}
+		}
 
-				
-		// Drop Course in Table List
-				System.out.println("enrollPosF = " + enrollPos);
+		System.out.println(numEnroll);
+		if(numEnroll!=0) {
+			textAreaConsole.clear();
+			for(int im = 0 ; im < numEnroll+1; im++) {
+				textAreaConsole.setText(textAreaConsole.getText()+"\n"+enrollList[im].getCourseCode()+" " + enrollList[im].getSections() + " has been enrolled in to your course list" +  "\n");
 			}
 		}
 		
-		for (int im = 0 ; im < sectionCount; im++) {
-			if (ScrappedResult[im].getEnrolled() == true) {
-				textAreaConsole.setText(ScrappedResult[im].getCourseName() + " " + ScrappedResult[im].getCourseCode() + " has been enrolled in to your course list" +  "\n");
-			}
-		}
-		
-		
+
     	//Add a random block on Saturday
     	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
     	while(ap.getChildren().size()>29) {
@@ -235,17 +265,12 @@ public class Controller {
     void search() {
     	//Task 6 
     	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
-    	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
-    	sectionCount = 0;
-    	//Task 3															
-    	for (int jk = 0 ; jk < 1000 ; jk++) {									    // Init
-    		ScrappedResult[jk] = new TableList();
-    	}
-    	
+    	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 													
     	//task 1-------------------------for console displace
     	
     	textAreaConsole.clear();
     	int courseCount = 0;
+    	sectionCount = 0;	
     	String [] instructorsArray = new String[100];
     	for(int i = 0; i < 100; i++) {
     		instructorsArray[i]=null;
@@ -326,25 +351,20 @@ public class Controller {
     	
     	//task 1  end------------------------------------------------------------------------------------
     	
-    	// Task 3 
-
-    	
-    	// ScrappedResult for table to use;
-    	
 
     	
     	int i = 0;
     	
     	final ObservableList<TableList> data = FXCollections.observableArrayList();
-//    	TableList [] ScrappedResult = new TableList[sectionCount];
-//    	
+
+//    	task 3 ----------------------
     	for(int u = 0;  u < 1000; u++) {
     		ScrappedResult[u] = new TableList();		
     	}
     	
-	    if (EnrollResult[0] == null) {
+	    if (enrollList[0] == null) {
 			for (int jc = 0 ; jc < 1000; jc++) {
-				EnrollResult[jc] = new TableList();
+				enrollList[jc] = new TableList();
 			}    	
 	    }    
     	
@@ -369,18 +389,9 @@ public class Controller {
     		int temp = c.getNumSection();
     		i = i + temp;
     	} 
-    	
-    	if (sectionCount != 0) {
-			for (int Di = 0; Di < enrollPos + 1; Di++) {
-				if (EnrollResult[Di].getEnrolled() != false) {
-					data.add(EnrollResult[Di]);
-				}
 
-			}
-			
-    		for (int m = 0; m < sectionCount; m++) {    			
-    			data.add(ScrappedResult[m]);
-    		}
+    	for (int m = 0; m < sectionCount; m++) {    			
+    		data.add(ScrappedResult[m]);
     	}
 
     	tableView.setItems(data);                                                            // Add data inside table
