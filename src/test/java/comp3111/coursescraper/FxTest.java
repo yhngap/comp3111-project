@@ -45,7 +45,7 @@ public class FxTest extends ApplicationTest {
 //		assertTrue(b.isDisabled());
 //	}
 	
-	@Test
+	@Test 
 	public void testSearchButton() {
 		clickOn("#tabMain");
 		int courseCount = 0;
