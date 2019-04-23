@@ -127,14 +127,18 @@ public class ItemTest {
 		Course i = new Course();
 		Slot s = new Slot();
 		i.addSlot(s);
+
+		assertEquals(i.getSlot(2),null);
+	}
+	@Test
+	public void testaddMoreSlot() {
+		Course i = new Course();
+		i.setNumSlots(50);
+		Slot s = new Slot();
+		i.addSlot(s);
+		assertEquals(i.getNumSlots(),50);
+
 		assertEquals(i.getSection(2),null);
 	}
-//	@Test
-//	public void testgetSlot2() {
-//		Course i = new Course();
-//		Slot s = new Slot();
-//		s.setNumInstructors(2);
-//		i.addSlot(s);
-//		assertEquals(i.getSlot(1).getNumInstructors(),2);
-//	}
+
 }
