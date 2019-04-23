@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.time.LocalTime;
 import java.util.Locale;
 import java.time.format.DateTimeFormatter;
-
+/**
+ * Slot object is used for keeping the information of slot which is scraped from website.
+ * One slot object contains day, start, end, venue, number of instructors and name of instrcutors.
+ */
 public class Slot {
 	private static final int DEFAULT_MAX_Instructor =10;
 	private int day;
@@ -22,6 +25,9 @@ public class Slot {
 		for (int i = 0; i < DAYS.length; i++)
 			DAYS_MAP.put(DAYS[i], i);
 	}
+	/**
+	 *construct maximum number of empty instructor name into array
+	 */
 	public Slot() {
 		instructors = new String[DEFAULT_MAX_Instructor];
 		for (int i = 0; i < DEFAULT_MAX_Instructor; i++) instructors[i] = null;
@@ -41,18 +47,33 @@ public class Slot {
 		}
 		return s;
 	}  
+	/**
+	 * @return the information of slot
+	 */
 	public String toString() {
 		return DAYS[day] + start.toString() + "-" + end.toString() + ":" + venue;
 	}
+	/**
+	 * @return the StartHour
+	 */
 	public int getStartHour() {
 		return start.getHour();
 	}
+	/**
+	 * @return the StartMinute
+	 */
 	public int getStartMinute() {
 		return start.getMinute();
 	}
+	/**
+	 * @return the EndHour
+	 */
 	public int getEndHour() {
 		return end.getHour();
 	}
+	/**
+	 * @return the EndMinute
+	 */
 	public int getEndMinute() {
 		return end.getMinute();
 	}
@@ -120,20 +141,20 @@ public class Slot {
 		return this.numInstructors;
 	}
 	/**
-	 * @param string name to add the name into instructor list
+	 * @param name to add the name into instructor list
 	 */
-	public void addInstructor(String i) {
+	public void addInstructor(String name) {
 		if(numInstructors>=DEFAULT_MAX_Instructor)
 			return;
-		instructors[numInstructors++] = i;
+		instructors[numInstructors++] = name;
 	}
 	/**
-	 * @param Instructors index to get instructor's name
+	 * @param index to get instructor's name
 	 * @return name of instructor
 	 */
-	public String getInstructor(int i) {
-		if (i >= 0 && i < numInstructors)
-			return instructors[i];
+	public String getInstructor(int index) {
+		if (index >= 0 && index < numInstructors)
+			return instructors[index];
 		return null;
 	}
 	//task 1.3 end---------------------------

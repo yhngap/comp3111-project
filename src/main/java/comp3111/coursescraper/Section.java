@@ -1,7 +1,10 @@
 package comp3111.coursescraper;
-
-
 //task1.2 ----------------------new class section for task1
+/**
+ * 
+ *section object is used for keeping the information of sections for different classes.
+ *One section object contains section code, section type, number of slots and slot objects. 
+ */
 public class Section {
 	private static final int DEFAULT_MAX_SLOT2 =10;
 	private String sectionCode;
@@ -9,11 +12,17 @@ public class Section {
 	private Slot [] slots;
 	private int numSlots;
 	public static final String type[] = {"L","T","La"};
+	/**
+	 *construct maximum number of empty slots into array
+	 */
 	public Section() {
 		slots = new Slot[DEFAULT_MAX_SLOT2];
 		for (int i = 0; i < DEFAULT_MAX_SLOT2; i++) slots[i] = null;
 		numSlots = 0;
 	}
+	/**
+	 * @return s return the other the same section object
+	 */
 	public Section sectionClone() {
 		Section s = new Section();
 		for(int i=0;i<numSlots;i++) {
@@ -24,34 +33,56 @@ public class Section {
 		s.numSlots = this.numSlots;
 		return s;
 	}  
-	
+	/**
+	 * @param s  add new slot s into section
+	 */
 	public void addSlot(Slot s) {
 		if (numSlots >= DEFAULT_MAX_SLOT2)
 			return;
 		slots[numSlots++] = s.clone();
 	}
+	/**
+	 * @param i  get corresponding slot by index i
+	 * @return slot or null
+	 */
 	public Slot getSlot(int i) {
 		if (i >= 0 && i < numSlots)
 			return slots[i];
 		return null;
 	}
+	/**
+	 *@return the sectionCode
+	 */
 	public String getSectionCode() {
 		return sectionCode;
 	}
+	/**
+	 * @param s  set the sectionCode
+	 */
 	public void setSectionCode(String s) {
 		this.sectionCode = s;
 	}
+	/**
+	 *@return the sectionType
+	 */
 	public int getSectionType() {
 		return sectionType;
 	}
-	
+	/**
+	 * @param sectionType  the sectionType to set
+	 */
 	public void setsectionType(int sectionType) {
 		this.sectionType = sectionType;
 	}
+	/**
+	 *@return the numSlots
+	 */
 	public int getNumSlots() {
 		return numSlots;
 	}
-	
+	/**
+	 *@param numSlots  the numSlots to set
+	 */
 	public void setNumSlots(int numSlots) {
 		this.numSlots = numSlots;
 	}

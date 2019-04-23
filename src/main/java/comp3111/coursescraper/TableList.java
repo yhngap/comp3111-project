@@ -1,5 +1,6 @@
 package comp3111.coursescraper;
 import javafx.scene.control.CheckBox;
+
 public class TableList {
 	private String CourseCode;
 	private String CourseName;
@@ -15,7 +16,6 @@ public class TableList {
 		this.sections = Sec;
 		this.enroll = new CheckBox();
 	}
-	
 	TableList () {
 		this.CourseCode = null;
 		this.CourseName = null;

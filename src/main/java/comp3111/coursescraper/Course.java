@@ -1,7 +1,11 @@
 package comp3111.coursescraper;
 
-
-
+/**
+ *Course object is used for keeping the information of course which is scraped from website.
+ * One course object contains the title, description, exclusion. course code, course name, 
+ * the number of slots, the number of instructors, the number of sections, 
+ * the instructor's name, section objects and slot objects.
+ */
 public class Course {
 	private static final int DEFAULT_MAX_SLOT = 50;
 	
@@ -26,8 +30,9 @@ public class Course {
 	private String [] instructors;
 	private int numInstructors;
 	//task1.1 end----------------------------
-	
-
+	/**
+	 *construct maximum number of empty sections, instructors and slots into corresponding array
+	 */
 	public Course() {
 		slots = new Slot[DEFAULT_MAX_SLOT];
 		for (int i = 0; i < DEFAULT_MAX_SLOT; i++) slots[i] = null;
@@ -43,37 +48,57 @@ public class Course {
 		//task 1.2 end-------------------------- 
 		
 	}
-	
+	/**
+	 * @param s  add new slot s into course
+	 */
 	public void addSlot(Slot s) {
 		if (numSlots >= DEFAULT_MAX_SLOT)
 			return;
 		slots[numSlots++] = s.clone();
 	}
-	public Slot getSlot(int i) {
-		if (i >= 0 && i < numSlots)
-			return slots[i];
+	/**
+	 * @param index to get the slot
+	 * @return the Slot
+	 */
+	public Slot getSlot(int index) {
+		if (index >= 0 && index < numSlots)
+			return slots[index];
 		return null;
 	}
 	
 	//task 1.3 ------------------------------add and get section/instruction function
+	/**
+	 * @param s add new section s into course
+	 */
 	public void addSection(Section s) {
 		if (numSections >= DEFAULT_MAX_Section)
 			return;
 		sections[numSections++] = s.sectionClone();
 	}
-	public Section getSection(int i) {
-		if (i >= 0 && i < numSections)
-			return sections[i];
+	/**
+	 * @param index to get the section
+	 * @return the Slot
+	 */
+	public Section getSection(int index) {
+		if (index >= 0 && index < numSections)
+			return sections[index];
 		return null;
 	}
-	public void addInstructor(String i) {
+	/**
+	 * @param name add new instructor's name into course
+	 */
+	public void addInstructor(String name) {
 		if(numInstructors>=DEFAULT_MAX_Instructor)
 			return;
-		instructors[numInstructors++] = i;
+		instructors[numInstructors++] = name;
 	}
-	public String getInstructor(int i) {
-		if (i >= 0 && i < numInstructors)
-			return instructors[i];
+	/**
+	 * @param index to get the instructor's name
+	 * @return the Slot
+	 */
+	public String getInstructor(int index) {
+		if (index >= 0 && index < numInstructors)
+			return instructors[index];
 		return null;
 	}
 	//task 1.3 end -------------------------------
@@ -93,15 +118,23 @@ public class Course {
 	}
 	
 	// Task 3
+	/**
+	 * @param CourseCode the CourseCode to set
+	 */
 	public void setCourseCode(String CourseCode) {
 		
 		this.CourseCode = CourseCode.substring(0,10);			// Cut the Course Title to get eg:(Comp2011) 
 	}
-	
+	/**
+	 * @return the getCourseCode
+	 */
 	public String getCourseCode() {
 		return CourseCode;
 	}
 	
+	/**
+	 * @param CourseName the CourseName to set
+	 */
 	public void setCourseName(String CourseName) {
 		if (CourseName.substring(12,13).equals(" ")) {
 			this.CourseName = CourseName.substring(13);
@@ -113,14 +146,22 @@ public class Course {
 		
 	}
 	
+	/**
+	 * @return the CourseName
+	 */
 	public String getCourseName() {
 		return CourseName;
 	}
-	
+	/**
+	 * @return the getfirstSectionCode
+	 */
 	public String getfirstSectionCode() {
 		return firstSectionCode;
 	}
 	
+	/**
+	 * @param sectionCode the sectionCode to set
+	 */
 	public void setfirstSectionCode (String sectionCode) {
 		this.firstSectionCode = sectionCode;
 	}
@@ -192,7 +233,7 @@ public class Course {
 	}
 	
 	/**
-	 * @param numInstructor the numInstructor to set
+	 * @param numInstructors the numInstructors to set
 	 */
 	public void setNumInstructors(int numInstructors) {
 		this.numInstructors = numInstructors;

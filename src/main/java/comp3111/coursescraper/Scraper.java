@@ -86,7 +86,13 @@ public class Scraper {
 		client.getOptions().setCssEnabled(false);
 		client.getOptions().setJavaScriptEnabled(false);
 	}
-
+	/**
+	 * @param e	HtmlElement for scraping information into slot
+	 * @param c course for adding slot
+	 * @param secondRow	boolean for checking add second slot
+	 * @param name the instructor's name for slot
+	 * @param nameIndex number of instructors
+	 */
 	private void addSlot(HtmlElement e, Course c, boolean secondRow, String [] name, int nameIndex) {
 		String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
 		String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
@@ -112,6 +118,11 @@ public class Scraper {
 	}
 	
 	//task 1.2.1-------------------------for adding the slot into corresponding section
+	/**
+	 * @param e	HtmlElement for scraping information into slot
+	 * @param sec section for adding slot
+	 * @param secondRow	boolean for checking add second slot
+	 */
 	private void addSectionSlot(HtmlElement e, Section sec, boolean secondRow) {
 			String times[] =  e.getChildNodes().get(secondRow ? 0 : 3).asText().split(" ");
 			String venue = e.getChildNodes().get(secondRow ? 1 : 4).asText();
@@ -137,6 +148,10 @@ public class Scraper {
 	//task 1.2.1 end-------------------------
 	
 	//task 1.2.2-------------------------for adding section to related course 
+	/**
+	 * @param c course for adding section
+	 * @param section to set the sectioncode
+	 */
 	private	Section createSection( Course c,String section) {
 		int type;
 		if(section.substring(0,2).equals("LA")) {
@@ -157,7 +172,12 @@ public class Scraper {
 		return s;
 	}
 	//task 1.2.2 end--------------------------------
-	
+	/**
+	 * @param baseurl link of website.
+	 * @param term course for adding slot
+	 * @param sub boolean for checking add second slot
+	 * @return A list of course scrape for website
+	 */
 	public List<Course> scrape(String baseurl, String term, String sub) {
 
 		try {
