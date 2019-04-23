@@ -27,6 +27,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.event.EventHandler;
+
 
 import java.util.Random;
 import java.util.Arrays;
@@ -101,13 +103,11 @@ public class Controller {
     
     private Scraper scraper = new Scraper();
     
-    // List: List element (task 3)
-//    @FXML private TableView<TableList> tableView = new TableView<TableList>();
-//    @FXML private TableColumn<TableList, String> tCourseCode = new TableColumn<TableList, String> ();
-//    @FXML private TableColumn<TableList, String> tLectureSection = new TableColumn<TableList, String> ();
-//    @FXML private TableColumn<TableList, String> tCourseName = new TableColumn<TableList, String> ();
-//    @FXML private TableColumn<TableList, String> tInstructor = new TableColumn<TableList, String> ();
-//    @FXML private TableColumn<TableList, CheckBox> tEnroll = new TableColumn<TableList, CheckBox> ();
+    private int sectionCount = 0;
+    
+    private TableList [] ScrappedResult = new TableList [1000];
+    private TableList [] EnrollResult = new TableList [1000];
+    private int enrollPos = 0;
     
 	@FXML 																			         // Associate data with Columns
 	private void initialize() {
@@ -119,9 +119,49 @@ public class Controller {
 		tInstructor.setCellValueFactory(new PropertyValueFactory<TableList,String>("instructors"));
 		tEnroll.setCellValueFactory(new PropertyValueFactory<TableList,String>("enroll"));
 	}
+	
+	
 //	task4 ---------------------when something is click on update time table 
 	@FXML
-	void userClickedOnTable() {
+	void userClickedOnTable() {		
+		textAreaConsole.clear();
+		enrollPos = 0;
+		
+		// Task 3 Update Enroll information 
+		for (int js = 0 ; js < 990; js++) {
+			if (EnrollResult[js].getEnrolled() != false) {
+				enrollPos++;
+				System.out.println("enrollPos = " + enrollPos);
+			}
+		}
+		
+		for (int it = 0 ; it < sectionCount; it++) {
+			if (ScrappedResult[it].getEnroll().isSelected()) {
+				ScrappedResult[it].setEnrolled(true);
+				ScrappedResult[it].getEnroll().setText("Enrolled");
+		// Create and store Enroll courses to List 
+				EnrollResult[enrollPos].setCourseCode(ScrappedResult[it].getCourseCode());
+				EnrollResult[enrollPos].setCourseName(ScrappedResult[it].getCourseName());
+				EnrollResult[enrollPos].setEnrolled(true);
+				EnrollResult[enrollPos].setSections(ScrappedResult[it].getSections());
+				EnrollResult[enrollPos].setInstructors(ScrappedResult[it].getInstructors());
+				System.out.println("enrollPosT = " + enrollPos);
+			}
+		else if (ScrappedResult[it].getEnroll().isSelected() == false) {
+				ScrappedResult[it].setEnrolled(false);
+				ScrappedResult[it].getEnroll().setText("");
+		// Drop Course in Table List
+				System.out.println("enrollPosF = " + enrollPos);
+				EnrollResult[it] = null;
+				EnrollResult[it] = new TableList();
+			}
+		}
+		
+		for (int im = 0 ; im < sectionCount; im++) {
+			if (ScrappedResult[im].getEnrolled() == true) {
+				textAreaConsole.setText(ScrappedResult[im].getCourseName() + " " + ScrappedResult[im].getCourseCode() + " has been enrolled in to your course list" +  "\n");
+			}
+		}
 		
     	//Add a random block on Saturday
     	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
@@ -149,7 +189,7 @@ public class Controller {
     	randomLabel.setOpacity(0.55);
     	randomLabel.setId("Si");
     	ap.getChildren().add(randomLabel);
-
+    	
 //    	c.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
 //
 //    	Label [] listLabel = new Label[5];
@@ -172,6 +212,8 @@ public class Controller {
 	}
 //   task4 end -----------------------------------
 	
+
+
     @FXML
     void allSubjectSearch() {
     	
@@ -194,11 +236,16 @@ public class Controller {
     	//Task 6 
     	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
     	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
+    	sectionCount = 0;
+    	//Task 3															
+    	for (int jk = 0 ; jk < 1000 ; jk++) {									    // Init
+    		ScrappedResult[jk] = new TableList();
+    	}
     	
     	//task 1-------------------------for console displace
+    	
     	textAreaConsole.clear();
     	int courseCount = 0;
-    	int sectionCount = 0;
     	String [] instructorsArray = new String[100];
     	for(int i = 0; i < 100; i++) {
     		instructorsArray[i]=null;
@@ -284,17 +331,24 @@ public class Controller {
     	
     	// ScrappedResult for table to use;
     	
+
+    	
     	int i = 0;
     	
     	final ObservableList<TableList> data = FXCollections.observableArrayList();
-    	TableList [] ScrappedResult = new TableList[sectionCount];
-    	
-    	for(int u = 0;  u < sectionCount; u++) {
-    		ScrappedResult[u] = new TableList();
+//    	TableList [] ScrappedResult = new TableList[sectionCount];
+//    	
+    	for(int u = 0;  u < 1000; u++) {
+    		ScrappedResult[u] = new TableList();		
     	}
     	
-    	System.out.println("sectionCount = " + sectionCount);
-    	System.out.println("Message for testing ");
+	    if (EnrollResult[0] == null) {
+			for (int jc = 0 ; jc < 1000; jc++) {
+				EnrollResult[jc] = new TableList();
+			}    	
+	    }    
+    	
+
     	for (Course c: v) {
     		for (int k = 0 ; k < c.getNumSection(); k++) {
     			String InstructorTotal = "";
@@ -317,13 +371,23 @@ public class Controller {
     	} 
     	
     	if (sectionCount != 0) {
-    		for (int m = 0; m < sectionCount; m++) {
+			for (int Di = 0; Di < enrollPos + 1; Di++) {
+				if (EnrollResult[Di].getEnrolled() != false) {
+					data.add(EnrollResult[Di]);
+				}
+
+			}
+			
+    		for (int m = 0; m < sectionCount; m++) {    			
     			data.add(ScrappedResult[m]);
     		}
     	}
-     	
-    	tableView.setItems(data);                                                            // Add data inside table
 
+    	tableView.setItems(data);                                                            // Add data inside table
+    	
+    	// CheckBox Event
+
+    	
     }
 
 }
