@@ -23,11 +23,11 @@ public class TableList {
 		this.sections = null;
 	}
 	
-	public CheckBox getSelect() {
+	public CheckBox getEnroll() {
 		return enroll;
 	}
 	
-	public void setSelect(CheckBox S) {
+	public void setEnroll(CheckBox S) {
 		this.enroll = S;
 	}
 	

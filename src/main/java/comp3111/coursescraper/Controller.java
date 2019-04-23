@@ -297,11 +297,11 @@ public class Controller {
     	for (Course c: v) {
     		for (int k = 0 ; k < c.getNumSection(); k++) {
     			String InstructorTotal = "";
-//    			CheckBox cb = new CheckBox("i");
+    			CheckBox cb = new CheckBox();
     			c.setCourseCode(c.getTitle());
     			c.setCourseName(c.getTitle());
     			c.setfirstSectionCode(c.getSection(k).getSectionCode());
-//    			ScrappedResult[i+k].setSelect(cb);
+    			ScrappedResult[i+k].setEnroll(cb);
          		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
         		ScrappedResult[i+k].setCourseName(c.getCourseName());
         		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
