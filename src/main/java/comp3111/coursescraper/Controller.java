@@ -122,7 +122,52 @@ public class Controller {
 //	task4 ---------------------when something is click on update time table 
 	@FXML
 	void userClickedOnTable() {
-		
+    	//Add a random block on Saturday
+    	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
+    	while(ap.getChildren().size()>29) {
+    		ap.getChildren().remove(ap.getChildren().size()-1);
+    	}
+    	Label randomLabel = new Label("COMP1022\nL1");
+    	Random r = new Random();
+    	double start = (r.nextInt(10) + 1) * 20 + 40;
+    	double opacit=0.55;
+    	double [][] color = {
+    			{1,0,0},
+    			{0.5,0.5,0.5},
+    			{0,1,0},
+    			{0.5,0,0.5},
+    			{0,0,1}
+    	};
+    	randomLabel.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
+    	randomLabel.setLayoutX(602.0);
+    	randomLabel.setLayoutY(start);
+    	randomLabel.setMinWidth(100.0);
+    	randomLabel.setMaxWidth(100.0);
+    	randomLabel.setMinHeight(60);
+    	randomLabel.setMaxHeight(60);
+    	randomLabel.setOpacity(0.55);
+    	randomLabel.setId("Si");
+    	ap.getChildren().add(randomLabel);
+
+//    	c.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
+//
+//    	Label [] listLabel = new Label[5];
+//    	for(int l = 0; l < 5; l++) {
+//    		listLabel[l]=null;
+//    	}
+//    	for(int l = 0; l < 5; l++) {
+//    		listLabel[l] = new Label("value");    		//value = courseCode + sectionCode
+//    		listLabel[l].setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
+////    		listLabel[l].setLayoutX(value);				//	value = day*100+2
+////    		listLabel[1].setLayoutY(value); 			// value = 40+ 20*(Hour-9)+minutes/3
+//    		listLabel[1].setMinWidth(100.0);
+//    		listLabel[1].setMaxWidth(100.0);
+////    		listLabel[1].setMinHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
+////    		listLabel[1].setMaxHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
+//    		listLabel[1].setOpacity(0.55);
+////    		ap.getChildren().add(listLabel[1]);			
+//    	}
+//		
 	}
 //   task4 end -----------------------------------
 	
@@ -277,52 +322,6 @@ public class Controller {
     	}
      	
     	tableView.setItems(data);                                                            // Add data inside table
-
-    	
-    	
-
-    	
-    	//Add a random block on Saturday
-    	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
-    	Label randomLabel = new Label("COMP1022\nL1");
-    	Random r = new Random();
-    	double start = (r.nextInt(10) + 1) * 20 + 40;
-    	double opacit=0.55;
-    	double [][] color = {
-    			{1,0,0},
-    			{0.5,0.5,0.5},
-    			{0,1,0},
-    			{0.5,0,0.5},
-    			{0,0,1}
-    	};
-    	randomLabel.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-    	randomLabel.setLayoutX(602.0);
-    	randomLabel.setLayoutY(220);
-    	randomLabel.setMinWidth(100.0);
-    	randomLabel.setMaxWidth(100.0);
-    	randomLabel.setMinHeight(60);
-    	randomLabel.setMaxHeight(60);
-    	randomLabel.setOpacity(0.55);
-    	ap.getChildren().add(randomLabel);
-//    	c.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-
-    	Label [] listLabel = new Label[5];
-    	for(int l = 0; l < 5; l++) {
-    		listLabel[l]=null;
-    	}
-    	for(int l = 0; l < 5; l++) {
-    		listLabel[l] = new Label("value");    		//value = courseCode + sectionCode
-    		listLabel[l].setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-//    		listLabel[l].setLayoutX(value);				//	value = day*100+2
-//    		listLabel[1].setLayoutY(value); 			// value = 40+ 20*(Hour-9)+minutes/3
-    		listLabel[1].setMinWidth(100.0);
-    		listLabel[1].setMaxWidth(100.0);
-//    		listLabel[1].setMinHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-//    		listLabel[1].setMaxHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-    		listLabel[1].setOpacity(0.55);
-//    		ap.getChildren().add(listLabel[1]);			
-    	}
-    	
     }
 
 }
