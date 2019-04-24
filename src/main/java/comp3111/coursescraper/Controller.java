@@ -120,85 +120,78 @@ public class Controller {
 	}
 	
 	
-////	task4 ---------------------when something is click on update time table 
-//	@FXML
-//	void userClickedOnTimeTable() {		
-//    	//Add a random block on Saturday
-//    	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
-//    	while(ap.getChildren().size()>29) {
-//    		ap.getChildren().remove(ap.getChildren().size()-1);
-//    	}
-////    	Label randomLabel = new Label("COMP1022\nL1");
-////    	Random r = new Random();
-////    	double start = (r.nextInt(10) + 1) * 20 + 40;
-//    	double opacit=0.55;
-//    	double [][] color = {
-//    			{1,0,0},
-//    			{0.5,0.5,0.5},
-//    			{0,1,0},
-//    			{0.5,0,0.5},
-//    			{0,0,1}
-//    	};
-////    	randomLabel.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-////    	randomLabel.setLayoutX(602.0);
-////    	randomLabel.setLayoutY(start);
-////    	randomLabel.setMinWidth(100.0);
-////    	randomLabel.setMaxWidth(100.0);
-////    	randomLabel.setMinHeight(60);
-////    	randomLabel.setMaxHeight(60);
-////    	randomLabel.setOpacity(0.55);
-////    	randomLabel.setId("Si");
-////    	ap.getChildren().add(randomLabel);
-////    	c.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-//    	int day = 0;
-//    	int startH = 0;
-//    	int startM = 0;
-//    	int endH = 0;
-//    	int endM = 0;
-//    	int index = 0;
-//    	Label [] listLabel = new Label[numEnroll+1];
-//    	for(int l = 0; l < numEnroll+1; l++) {
-//    		listLabel[l]=null;
-//    	}
-//    	for(int s= 0; s < numEnroll+1; s++ ) {
-//    		for(int k = 0; k < enrollList[s].getNumSlots(); k++) {
-//    			day = enrollList[s].getSlot(k).getDay();
-//    			startH = enrollList[s].getSlot(k).getStartHour();
-//    			startM = enrollList[s].getSlot(k).getStartMinute();
-//    			endH = enrollList[s].getSlot(k).getEndHour();
-//    			endM = enrollList[s].getSlot(k).getEndMinute();
-//    			listLabel[index] = new Label(enrollList[s].getCourseCode() + "/n" + enrollList[s].getSections());
-//    			listLabel[index].setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-//        		listLabel[index].setLayoutX(day*100+2);				//	value = day*100+2
-//        		listLabel[index].setLayoutY(40+20*(startH-9)+startM/3); 			// value = 40+ 20*(Hour-9)+minutes/3
-//        		listLabel[index].setMinWidth(100.0);
-//        		listLabel[index].setMaxWidth(100.0);
-//        		listLabel[index].setMinHeight(20*(endH-startH)+(endM-startM)/3);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-//        		listLabel[index].setMaxHeight(20*(endH-startH)+(endM-startM)/3);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-//        		listLabel[index].setOpacity(0.55);
-//        		ap.getChildren().add(listLabel[index]);	
-//    			index += 1;
-//    		}
-//    		
-//    	}
-////    	Label [] listLabel = new Label[5];
-////    	for(int l = 0; l < 5; l++) {
-////    		listLabel[l]=null;
-////    	}
-////    	for(int l = 0; l < 5; l++) {
-////    		listLabel[l] = new Label("value");    		//value = courseCode + sectionCode
-////    		listLabel[l].setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-////    		listLabel[l].setLayoutX(value);				//	value = day*100+2
-////    		listLabel[1].setLayoutY(value); 			// value = 40+ 20*(Hour-9)+minutes/3
-////    		listLabel[1].setMinWidth(100.0);
-////    		listLabel[1].setMaxWidth(100.0);
-////    		listLabel[1].setMinHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-////    		listLabel[1].setMaxHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-////    		listLabel[1].setOpacity(0.55);
-////    		ap.getChildren().add(listLabel[1]);			
-////    	}
-//		
-//	}
+//	task4 ---------------------when something is click on update time table 
+	@FXML
+	void userClickedOnTimeTable() {		
+    	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
+    	while(ap.getChildren().size()>29) {
+    		ap.getChildren().remove(ap.getChildren().size()-1);
+    	}
+    	double opacit=0.55;
+    	int day = 0;
+    	int startH = 0;
+    	int startM = 0;
+    	int endH = 0;
+    	int endM = 0;
+    	int index = 0;
+    	Label [] listLabel = new Label[1000];
+    	for(int l = 0; l < 1000; l++) {
+    		listLabel[l]=null;
+    	}
+    	double [][] color1 = {
+    			{1,0,0},
+    			{0,1,0},
+    			{0,0,1},
+    			{0.3,0.3,0.3},
+    			{0.3,0,0.3},
+    			{0.3,0.3,0},
+    			{0,0.3,0.3},
+    			{1,0,1},
+    			{0,1,1},
+    			{1,1,0},
+    			{0.5,0.5,0},
+    			{0.5,0,0.5},
+    			{0,0.5,0.5},
+    			{0.1,0.7,0.7},
+    			{0.7,0.1,0.7},
+    			{0.7,0.7,0.1},
+    			{1,0,0.5},
+    			{0,1,0.5},
+    			{0,0.5,1},
+    			{0.5,0,1}
+    	};
+    	for(int s= 0; s < numEnroll; s++ ) {
+    		System.out.println( enrollList[s].getNumSlots());
+    		for(int k = 0; k < enrollList[s].getNumSlots(); k++) {
+    			day = enrollList[s].getSlot(k).getDay();
+    			startH = enrollList[s].getSlot(k).getStartHour();
+    			startM = enrollList[s].getSlot(k).getStartMinute();
+    			endH = enrollList[s].getSlot(k).getEndHour();
+    			endM = enrollList[s].getSlot(k).getEndMinute();
+    			
+    			System.out.println(endM-startM);
+    			System.out.println("H: " + startH + " -----day: " + day);
+    			listLabel[index] = new Label(enrollList[s].getCourseCode() + "\n" + enrollList[s].getSections().substring(0,3));
+    			listLabel[index].setStyle("-fx-font: 6 arial;");
+    			if(s<20) {
+    				listLabel[index].setBackground(new Background(new BackgroundFill(Color.color(color1[s][0],color1[s][1],color1[s][2]), CornerRadii.EMPTY, Insets.EMPTY)));
+    			}
+    			else {
+    				listLabel[index].setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+    			}
+        		listLabel[index].setLayoutX((day+1)*100+2);				//	value = day*100+2
+        		listLabel[index].setLayoutY(40+20*(startH-9)+startM/3); 			// value = 40+ 20*(Hour-9)+minutes/3
+        		listLabel[index].setMinWidth(100.0);
+        		listLabel[index].setMaxWidth(100.0);
+        		listLabel[index].setMinHeight(20*(endH-startH)+(endM-startM)/3);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
+        		listLabel[index].setMaxHeight(20*(endH-startH)+(endM-startM)/3);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
+        		listLabel[index].setOpacity(0.55);
+        		listLabel[index].setTextFill(Color.WHITE);
+        		ap.getChildren().add(listLabel[index]);	
+    			index += 1;
+    		}		
+    	}
+	}
 //  task4 end -----------------------------------
 	@FXML
 	void userClickedOnTable() {		
@@ -248,111 +241,6 @@ public class Controller {
 				textAreaConsole.setText(textAreaConsole.getText()+"\n"+enrollList[im].getCourseCode()+" " + enrollList[im].getSections() + " has been enrolled in to your course list" +  "\n");
 			}
 		}
-		
-		
-		
-		
-    	//Add a random block on Saturday
-    	AnchorPane ap = (AnchorPane)tabTimetable.getContent();
-    	while(ap.getChildren().size()>29) {
-    		ap.getChildren().remove(ap.getChildren().size()-1);
-    	}
-//    	Label randomLabel = new Label("COMP1022\nL1");
-//    	Random r = new Random();
-//    	double start = (r.nextInt(10) + 1) * 20 + 40;
-    	double opacit=0.55;
-
-//    	randomLabel.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-//    	randomLabel.setLayoutX(602.0);
-//    	randomLabel.setLayoutY(start);
-//    	randomLabel.setMinWidth(100.0);
-//    	randomLabel.setMaxWidth(100.0);
-//    	randomLabel.setMinHeight(60);
-//    	randomLabel.setMaxHeight(60);
-//    	randomLabel.setOpacity(0.55);
-//    	randomLabel.setId("Si");
-//    	ap.getChildren().add(randomLabel);
-//    	c.setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-    	int day = 0;
-    	int startH = 0;
-    	int startM = 0;
-    	int endH = 0;
-    	int endM = 0;
-    	int index = 0;
-    	Label [] listLabel = new Label[1000];
-    	for(int l = 0; l < 1000; l++) {
-    		listLabel[l]=null;
-    	}
-    	double [][] color1 = {
-    			{1,0,0},
-    			{0,1,0},
-    			{0,0,1},
-    			{0.3,0.3,0.3},
-    			{0.3,0,0.3},
-    			{0.3,0.3,0},
-    			{0,0.3,0.3},
-    			{1,0,1},
-    			{0,1,1},
-    			{1,1,0},
-    			{0.5,0.5,0},
-    			{0.5,0,0.5},
-    			{0,0.5,0.5},
-    			{0.1,0.7,0.7},
-    			{0.7,0.1,0.7},
-    			{0.7,0.7,0.1},
-    			{1,0,0.5},
-    			{0,1,0.5},
-    			{0,0.5,1},
-    			{0.5,0,1}
-    	};
-    	System.out.println(numEnroll);
-    	for(int s= 0; s < numEnroll; s++ ) {
-    		System.out.println( enrollList[s].getNumSlots());
-    		for(int k = 0; k < enrollList[s].getNumSlots(); k++) {
-    			day = enrollList[s].getSlot(k).getDay();
-    			startH = enrollList[s].getSlot(k).getStartHour();
-    			startM = enrollList[s].getSlot(k).getStartMinute();
-    			endH = enrollList[s].getSlot(k).getEndHour();
-    			endM = enrollList[s].getSlot(k).getEndMinute();
-    			
-    			System.out.println(endM-startM);
-    			System.out.println("H: " + startH + " -----day: " + day);
-    			listLabel[index] = new Label(enrollList[s].getCourseCode() + "\n" + enrollList[s].getSections().substring(0,3));
-    			listLabel[index].setStyle("-fx-font: 6 arial;");
-    			if(s<20) {
-    				listLabel[index].setBackground(new Background(new BackgroundFill(Color.color(color1[s][0],color1[s][1],color1[s][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-    			}
-    			else {
-    				listLabel[index].setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-    			}
-        		listLabel[index].setLayoutX((day+1)*100+2);				//	value = day*100+2
-        		listLabel[index].setLayoutY(40+20*(startH-9)+startM/3); 			// value = 40+ 20*(Hour-9)+minutes/3
-        		listLabel[index].setMinWidth(100.0);
-        		listLabel[index].setMaxWidth(100.0);
-        		listLabel[index].setMinHeight(20*(endH-startH)+(endM-startM)/3);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-        		listLabel[index].setMaxHeight(20*(endH-startH)+(endM-startM)/3);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-        		listLabel[index].setOpacity(0.55);
-        		listLabel[index].setTextFill(Color.WHITE);
-        		ap.getChildren().add(listLabel[index]);	
-    			index += 1;
-    		}		
-    	}
-//    	Label [] listLabel = new Label[5];
-//    	for(int l = 0; l < 5; l++) {
-//    		listLabel[l]=null;
-//    	}
-//    	for(int l = 0; l < 5; l++) {
-//    		listLabel[l] = new Label("value");    		//value = courseCode + sectionCode
-//    		listLabel[l].setBackground(new Background(new BackgroundFill(Color.color(color[0][0], color[0][1], color[0][2]), CornerRadii.EMPTY, Insets.EMPTY)));
-//    		listLabel[l].setLayoutX(value);				//	value = day*100+2
-//    		listLabel[1].setLayoutY(value); 			// value = 40+ 20*(Hour-9)+minutes/3
-//    		listLabel[1].setMinWidth(100.0);
-//    		listLabel[1].setMaxWidth(100.0);
-//    		listLabel[1].setMinHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-//    		listLabel[1].setMaxHeight(value);				// value = 20*(endhour-endhour)+(endtmintues - startminutes)/3
-//    		listLabel[1].setOpacity(0.55);
-//    		ap.getChildren().add(listLabel[1]);			
-//    	}
 	}
 // task 3 end -------------------------------------
 	
@@ -533,12 +421,8 @@ public class Controller {
     	for (int m = 0; m < sectionCount+numEnroll; m++) {    			
     		data.add(ScrappedResult[m]);
     	}
-
     	tableView.setItems(data);                                                            // Add data inside table
-    	
     	// CheckBox Event
-
-    	
     }
 
 }
