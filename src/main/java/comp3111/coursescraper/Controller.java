@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
@@ -57,6 +58,42 @@ public class Controller {
     @FXML
     private Tab tabFilter;
 
+    @FXML
+    private CheckBox cboxAM;
+
+    @FXML
+    private CheckBox cboxPM;
+
+    @FXML
+    private CheckBox cboxMon;
+
+    @FXML
+    private CheckBox cboxTue;
+
+    @FXML
+    private CheckBox cboxWed;
+
+    @FXML
+    private CheckBox cboxThu;
+
+    @FXML
+    private CheckBox cboxFri;
+
+    @FXML
+    private CheckBox cboxSat;
+
+    @FXML
+    private Button buttonSelectAll;
+
+    @FXML
+    private CheckBox cboxCC;
+
+    @FXML
+    private CheckBox cboxNoEx;
+
+    @FXML
+    private CheckBox cboxLabOrTut;
+    
     @FXML
     private Tab tabList;
 
@@ -399,6 +436,55 @@ public class Controller {
     	// CheckBox Event
 
     	
+    }
+ 
+  @FXML
+    
+    void selectAll() {
+    	if (buttonSelectAll.getText().equals("Select All")) 
+    	{
+	    	cboxAM.setSelected(true);
+	    	cboxPM.setSelected(true);
+	    	
+	    	cboxMon.setSelected(true);
+	    	cboxTue.setSelected(true);
+	    	cboxWed.setSelected(true);
+	    	cboxThu.setSelected(true);
+	    	cboxFri.setSelected(true);
+	    	cboxSat.setSelected(true);
+	    	
+	    	cboxCC.setSelected(true);
+	    	cboxNoEx.setSelected(true);
+	    	
+	    	cboxLabOrTut.setSelected(true);
+	    	
+	    	buttonSelectAll.setText("De-select All");
+    	}
+    	else {
+	    	cboxAM.setSelected(false);
+	    	cboxPM.setSelected(false);
+	    	
+	    	cboxMon.setSelected(false);
+	    	cboxTue.setSelected(false);
+	    	cboxWed.setSelected(false);
+	    	cboxThu.setSelected(false);
+	    	cboxFri.setSelected(false);
+	    	cboxSat.setSelected(false);
+	    	
+	    	cboxCC.setSelected(false);
+	    	cboxNoEx.setSelected(false);
+	    	
+	    	cboxLabOrTut.setSelected(false);
+	    	
+	    	buttonSelectAll.setText("Select All");
+    	}
+    }
+
+    // Event used to update the info displayed in console in filter tab 
+    @FXML
+    void filter() {
+    	
+    
     }
 
 }
