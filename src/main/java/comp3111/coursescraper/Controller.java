@@ -107,6 +107,7 @@ public class Controller {
     private TableList [] enrollList = new TableList [1000];
     private int sectionCount = 0;	
     private int numEnroll = 0;
+    private boolean active = false;
 	@FXML 																			         // Associate data with Columns
 	private void initialize() {
 		
@@ -162,7 +163,7 @@ public class Controller {
 				if (ScrappedResult[it].getEnroll().isSelected()) {
 					int noContain = 0;
 					for(int im = 0 ; im < numEnroll+1; im++) {
-						if(enrollList[im].getCourseCode()==ScrappedResult[it].getCourseCode()) {
+						if(enrollList[im].getSections().equals(ScrappedResult[it].getSections())) {
 							noContain = 1;
 						}
 					}
@@ -172,21 +173,26 @@ public class Controller {
 					}
 				}
 				else {
-					int Contain = 0;
+					int contain = -1;
 					for(int im = 0 ; im < numEnroll+1; im++) {
-						if(enrollList[im].getCourseCode()==ScrappedResult[it].getCourseCode()) {
-							for(int i = im; i < numEnroll-1; numEnroll ++) {
-								enrollList[i]=enrollList[i+1];
-							}
-							enrollList[numEnroll]=new TableList();
-							numEnroll-=1;
+						if(enrollList[im].getSections().equals(ScrappedResult[it].getSections())) {
+							contain = im;
 						}
+					}
+					if(contain != -1) {
+						for(int i = contain; i < numEnroll; i++) {
+							enrollList[i]=enrollList[i+1];
+						}
+						enrollList[numEnroll] = new TableList();
+						numEnroll -= 1;
 					}
 				}
 		}
-
-		System.out.println(numEnroll);
 		if(numEnroll!=0) {
+			active = true;
+		}
+		System.out.println(numEnroll);
+		if(active) {
 			textAreaConsole.clear();
 			for(int im = 0 ; im < numEnroll+1; im++) {
 				textAreaConsole.setText(textAreaConsole.getText()+"\n"+enrollList[im].getCourseCode()+" " + enrollList[im].getSections() + " has been enrolled in to your course list" +  "\n");
@@ -263,6 +269,8 @@ public class Controller {
 
     @FXML
     void search() {
+    	//task 3 
+    	active = false;
     	//Task 6 
     	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
     	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 													
@@ -368,29 +376,48 @@ public class Controller {
 			}    	
 	    }    
     	
-
+	    if(numEnroll != 0 ) {
+	    	i = numEnroll;
+	    }
+	    for(int j = 0; j<i;j++) {
+	    	String InstructorTotal = "";
+	    	ScrappedResult[j].setEnroll(enrollList[j].getEnroll());
+     		ScrappedResult[j].setCourseCode(enrollList[j].getCourseCode());
+    		ScrappedResult[j].setCourseName(enrollList[j].getCourseName());
+    		ScrappedResult[j].setSections(enrollList[j].getSections());
+    		ScrappedResult[j].setInstructors(enrollList[j].getInstructors());
+	    }
     	for (Course c: v) {
     		for (int k = 0 ; k < c.getNumSection(); k++) {
     			String InstructorTotal = "";
+    			boolean skip = false;
     			CheckBox cb = new CheckBox();
     			c.setCourseCode(c.getTitle());
     			c.setCourseName(c.getTitle());
     			c.setfirstSectionCode(c.getSection(k).getSectionCode());
-    			ScrappedResult[i+k].setEnroll(cb);
-         		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
-        		ScrappedResult[i+k].setCourseName(c.getCourseName());
-        		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
-        		for (int suibian = 0; suibian < c.getNumIstructor(); suibian++) {
-        			InstructorTotal += c.getInstructor(suibian) + " ";
-        		}
-        		ScrappedResult[i+k].setInstructors(InstructorTotal);
+    			for(int j =0; j<numEnroll;j++) {
+    				if(c.getfirstSectionCode().equals(enrollList[j].getSections())) {
+    					skip =true;
+    					i-=1;
+    				}
+    			}
+    			if(!skip) {
+	    			ScrappedResult[i+k].setEnroll(cb);
+	         		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
+	        		ScrappedResult[i+k].setCourseName(c.getCourseName());
+	        		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
+	        		for (int suibian = 0; suibian < c.getNumIstructor(); suibian++) {
+	        			InstructorTotal += c.getInstructor(suibian) + " ";
+	        		}
+	        		ScrappedResult[i+k].setInstructors(InstructorTotal);
+	    		}
     		}
     		    		
     		int temp = c.getNumSection();
     		i = i + temp;
     	} 
 
-    	for (int m = 0; m < sectionCount; m++) {    			
+    	for (int m = 0; m < sectionCount+numEnroll; m++) {    			
     		data.add(ScrappedResult[m]);
     	}
 

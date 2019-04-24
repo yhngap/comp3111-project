@@ -22,7 +22,7 @@ public class TableList {
 		this.CourseCode = null;
 		this.CourseName = null;
 		this.instructors = null;
-		this.sections = null;
+		this.sections = " ";
 	}
 	
 	public CheckBox getEnroll() {
