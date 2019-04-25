@@ -244,7 +244,6 @@ public class Controller {
 	}
 // task 3 end -------------------------------------
 	
-
     @FXML
     void allSubjectSearch() {
     	
@@ -259,7 +258,7 @@ public class Controller {
 
     @FXML
     void findSfqEnrollCourse() {
-
+    	List<?> v = scraper.scrapeSFQ("file:///C:/Users/mzhengah/git/Comp3111_Project/src/main/resources/sfq.html");
     }
 
     @FXML

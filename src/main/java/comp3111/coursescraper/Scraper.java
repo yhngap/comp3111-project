@@ -272,5 +272,23 @@ public class Scraper {
 		}
 		return null;
 	}
+	public List<Course> scrapeSFQ(String baseurl){
+		try {
+			HtmlPage page = client.getPage(baseurl);
+			List<?> items = (List<?>) page.getByXPath("//table");
+			Vector<TableList>result = new Vector<TableList>();
+			if(items.isEmpty()) {
+				System.out.println("return");
+				return null;
+			}
+			for(int i = 0; i < items.size(); i++) {
+				HtmlElement item = (HtmlElement) items.get(i);
+				List<?> namelist = item.getByXPath(".//td[contains(@colspan,'3')]");
+			}
+		} catch (Exception e) {
+		System.out.println(e);
+		}
+	return null;
 
+	}
 }
