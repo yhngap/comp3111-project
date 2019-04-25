@@ -204,14 +204,19 @@ public class Scraper {
 				
 				List<?> popupdetailslist = (List<?>) htmlItem.getByXPath(".//div[@class='popupdetail']/table/tbody/tr");
 				HtmlElement exclusion = null;
+				HtmlElement attribute = null;
 				for ( HtmlElement e : (List<HtmlElement>)popupdetailslist) {
 					HtmlElement t = (HtmlElement) e.getFirstByXPath(".//th");
 					HtmlElement d = (HtmlElement) e.getFirstByXPath(".//td");
 					if (t.asText().equals("EXCLUSION")) {
 						exclusion = d;
 					}
+					if (t.asText().equals("ATTRIBUTES")) {
+						attribute = d;
+					}
 				}
 				c.setExclusion((exclusion == null ? "null" : exclusion.asText()));
+				c.setAttribute((attribute == null ? "null" : attribute.asText()));
 				
 				//task 1.3.c.1-------------------------for scraping instructors's name from web into related course
 				List<?> instructorslist = (List<?>) htmlItem.getByXPath(".//tr[contains(@class,'newsect')]");

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
@@ -58,6 +59,42 @@ public class Controller {
     private Tab tabFilter;
 
     @FXML
+    private CheckBox cboxAM;
+
+    @FXML
+    private CheckBox cboxPM;
+
+    @FXML
+    private CheckBox cboxMon;
+
+    @FXML
+    private CheckBox cboxTue;
+
+    @FXML
+    private CheckBox cboxWed;
+
+    @FXML
+    private CheckBox cboxThu;
+
+    @FXML
+    private CheckBox cboxFri;
+
+    @FXML
+    private CheckBox cboxSat;
+
+    @FXML
+    private Button buttonSelectAll;
+
+    @FXML
+    private CheckBox cboxCC;
+
+    @FXML
+    private CheckBox cboxNoEx;
+
+    @FXML
+    private CheckBox cboxLabOrTut;
+    
+    @FXML
     private Tab tabList;
 
     @FXML
@@ -100,6 +137,14 @@ public class Controller {
 
     @FXML
     private TextArea textAreaConsole;
+    
+    
+    // Cache list for searched course to prevent duplicate (Used to maintain the enroll)
+    private List<Course> cacheCourseList = new Vector<Course>();
+    // List we have after search
+    private List<Course> searchedCourseList = new Vector<Course>();
+    // List we have after filter
+    private List<Course> filteredCourseList = new Vector<Course>();
     
     
     private Scraper scraper = new Scraper();
@@ -422,6 +467,221 @@ public class Controller {
     	}
     	tableView.setItems(data);                                                            // Add data inside table
     	// CheckBox Event
+    	// For-loop added for Task 2 */
+    	// Save the scraped data for later use
+    	// Here I will scan through all the existing courses we have got in (List<Course>)v
+    	// and then add those not on the cache to the courseList and cacheCourseList
+    	// if found the course exist in the cache, get it from the cache instead of getting a new one
+    	searchedCourseList.clear();
+    	for (Course newCourse : v) {
+    		boolean bAddNewCourse = true;
+    		
+    		for (Course oldCourse : cacheCourseList) {
+    			if (newCourse.getTitle().equals(oldCourse.getTitle())) {
+    				bAddNewCourse = false;
+    				searchedCourseList.add(oldCourse);
+    				break;
+    			}
+    		}
+    		
+    		if (bAddNewCourse) {
+    			searchedCourseList.add(newCourse);
+    			cacheCourseList.add(newCourse);
+    		}
+    	}
+    	
+    }
+ 
+  @FXML
+    
+    void selectAll() {
+    	if (buttonSelectAll.getText().equals("Select All")) 
+    	{
+	    	cboxAM.setSelected(true);
+	    	cboxPM.setSelected(true);
+	    	
+	    	cboxMon.setSelected(true);
+	    	cboxTue.setSelected(true);
+	    	cboxWed.setSelected(true);
+	    	cboxThu.setSelected(true);
+	    	cboxFri.setSelected(true);
+	    	cboxSat.setSelected(true);
+	    	
+	    	cboxCC.setSelected(true);
+	    	cboxNoEx.setSelected(true);
+	    	
+	    	cboxLabOrTut.setSelected(true);
+	    	
+	    	buttonSelectAll.setText("De-select All");
+	    	filter();
+    	}
+    	else {
+	    	cboxAM.setSelected(false);
+	    	cboxPM.setSelected(false);
+	    	
+	    	cboxMon.setSelected(false);
+	    	cboxTue.setSelected(false);
+	    	cboxWed.setSelected(false);
+	    	cboxThu.setSelected(false);
+	    	cboxFri.setSelected(false);
+	    	cboxSat.setSelected(false);
+	    	
+	    	cboxCC.setSelected(false);
+	    	cboxNoEx.setSelected(false);
+	    	
+	    	cboxLabOrTut.setSelected(false);
+	    	
+	    	buttonSelectAll.setText("Select All");
+	    	filter();
+    	}
+    }
+
+    // Event used to update the info displayed in console in filter tab 
+    @FXML
+    void filter() {
+    	// Clear the console first
+    	textAreaConsole.setText("");
+    	
+    	// Return if courseList is empty
+    	if (searchedCourseList.isEmpty()) return;
+    	
+    	// Clear the filteredCourseList
+    	filteredCourseList.clear();
+     	// If all conditions are false -> filter is disabled    	
+    	if (!cboxAM.isSelected() && 
+    			!cboxPM.isSelected() && 
+    			!cboxMon.isSelected() &&
+    			!cboxTue.isSelected() &&
+    			!cboxWed.isSelected() &&
+    			!cboxThu.isSelected() &&
+    			!cboxFri.isSelected() &&
+    			!cboxSat.isSelected() &&
+    			!cboxCC.isSelected() &&
+    			!cboxNoEx.isSelected() &&
+    			!cboxLabOrTut.isSelected()) 
+    	{
+    		// Display all courses normally
+    		String output = "Unfiltered Output: (No conditions have been chosen)\n";
+        	for (Course course : searchedCourseList) {
+        		// newline for debug (disable the real newline when using)
+//        		String newline = course.getTitle() + "\nAttribute: (Debug) " + course.getAttribute() + "\nExclusion: (Debug) " + course.getExclusion() + "\n";        		
+        		
+        		// newline for real
+        		String newline = course.getTitle() + "\n";
+        		
+        		for (int i = 0; i < course.getNumSection(); i++)
+        		{
+    	    		Section section = course.getSection(i);
+    	    		String code = section.getSectionCode();
+        			for (int j = 0; j < section.getNumSlots(); j++)
+    	    		{
+    	    			Slot slot = section.getSlot(j);
+    	    			newline += code + " Slot " + j + ": " + slot + "\n";  
+    	    		}
+        		}
+        		output += newline + "\n";
+        	}
+        	filteredCourseList.addAll(searchedCourseList);
+    		textAreaConsole.setText(output + "\n");
+    	}
+    	// Else some conditions are true -> filter is on
+    	else {
+    		String output = "Filtered Output: (Filter applied)\n";
+        	for (Course course : searchedCourseList) {
+        		// newline for debug (disable the real newline when using)
+//        		String newline = course.getTitle() + "\nAttribute: (Debug) " + course.getAttribute() + "\nExclusion: (Debug) " + course.getExclusion() + "\n";        		
+        		
+        		// newline for real
+        		String newline = course.getTitle() + "\n";
+        		
+        		/* Bools for filter */
+        		boolean isTimeValid = false;
+        		boolean isDayValid = false;
+        		boolean isCCValid = false;
+        		boolean isNoExValid = false;
+        		boolean isLabOrTutValid = false;
+        		
+        		/* Bool array used for Day Filter */
+        		boolean isDaySelected[] = {cboxMon.isSelected(), cboxTue.isSelected(), cboxWed.isSelected(), cboxThu.isSelected(), cboxFri.isSelected(), cboxSat.isSelected()};
+        		
+        		/* Filter conditions for courses */
+        		// CC 4Y
+        		if (cboxCC.isSelected()) {
+	        		if (course.isCC4Y()) {
+	        			isCCValid = true;
+	        		}
+	        		else continue;
+        		}
+        		else isCCValid = true;
+        		
+        		// No Exclusion
+        		if (cboxNoEx.isSelected()) {
+        			if (course.isNoEx()) {
+        				isNoExValid = true;
+        			}
+        			else continue;
+        		}
+        		else isNoExValid = true;
+        		
+        		// Contains Labs or Tutorials
+        		if (cboxLabOrTut.isSelected()) {
+        			if (course.containsLabOrTut()) {
+        				isLabOrTutValid = true;
+        			}
+        			else continue;
+        		}
+        		else isLabOrTutValid = true;
+        		
+        		// Days
+        		boolean[] bContainsDaySection = course.containsDaySection();
+        		for (int day = 0; day < 6; day++) {
+        			if (isDaySelected[day]) {
+        				if(!bContainsDaySection[day]) break;
+        			}
+        			if (day == 5) isDayValid = true;
+        		}
+        		
+	    		// AM/PM 
+	    		if (cboxAM.isSelected() && cboxPM.isSelected()) {
+	    			if (course.containsAMPMSection()) {
+	    				isTimeValid = true;
+	    			}
+	    		}
+	    		else if (cboxAM.isSelected()) {
+    				if (course.containsAMSection()) {
+    					isTimeValid = true;
+    				}
+    			}
+	    		else if (cboxPM.isSelected()) {
+	    			if (course.containsPMSection()) {
+	    				isTimeValid = true;
+	    			}
+	    		}
+	    		else isTimeValid = true;
+        		
+        		for (int i = 0; i < course.getNumSection(); i++)
+        		{
+    	    		Section section = course.getSection(i);
+    	    		String code = section.getSectionCode();
+    	    		   	    		
+    	    		// Modify output function
+        			for (int j = 0; j < section.getNumSlots(); j++)
+    	    		{
+    	    			Slot slot = section.getSlot(j);
+    	    			newline += code + " Slot " + j + ": " + slot + "\n"; 
+    	    		}
+        		}
+        		
+        		// If satisfy all the criteria
+        		if (isTimeValid && isDayValid && isCCValid && isNoExValid && isLabOrTutValid) {
+        			// Add the line
+        			output += newline + "\n";
+        			filteredCourseList.add(course);
+        		}
+        		
+        	}
+        	textAreaConsole.setText(output);
+    	}
     }
 
 }
