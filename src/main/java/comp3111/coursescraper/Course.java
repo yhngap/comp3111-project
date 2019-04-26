@@ -317,4 +317,18 @@ public class Course {
 		}
 		return false;
 	}
+	
+	// task 5
+	public boolean isValidCourse() { return (getNumValidSections() > 0? true: false); }
+	
+	public int getNumValidSections()
+	{
+		int validCount = numSections;	//Using decrement strategy
+		for (int i = 0; i < numSections; i++)
+		{
+			if (!sections[i].isValidSection())
+				validCount--;
+		}
+		return validCount;
+	}
 }

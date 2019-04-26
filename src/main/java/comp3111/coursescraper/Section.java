@@ -132,5 +132,14 @@ public class Section {
 		}
 		return bContainDaySlot;
 	}
+	
+	// task 5
+	public boolean isValidSection()
+	{
+		//By definition the section is invalid if a section isn't LX, LAX or TX
+		if (sectionCode.substring(0, 1).equals("L") || sectionCode.substring(0, 1).equals("T") || sectionCode.substring(1, 2).equals("LA"))
+			return true;
+		return false;
+	}
 }
 //task 1.2 end --------------------------------

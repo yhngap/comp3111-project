@@ -2,6 +2,9 @@ package comp3111.coursescraper;
 
 
 import java.awt.event.ActionEvent;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -139,14 +142,14 @@ public class Controller {
     private TextArea textAreaConsole;
     
     
-    // Cache list for searched course to prevent duplicate (Used to maintain the enroll)
+    // Cache list for searched course to prevent duplicate
     private List<Course> cacheCourseList = new Vector<Course>();
     // List we have after search
     private List<Course> searchedCourseList = new Vector<Course>();
     // List we have after filter
     private List<Course> filteredCourseList = new Vector<Course>();
     
-    
+    private Service<Integer> DoWork;
     private Scraper scraper = new Scraper();
     private TableList [] ScrappedResult = new TableList [1000];
     private TableList [] enrollList = new TableList [1000];
@@ -289,9 +292,75 @@ public class Controller {
 	}
 // task 3 end -------------------------------------
 	
+    void ListDetail(Course c) {
+    	String newline = c.getTitle() + "\n";
+		for (int i = 0; i < c.getNumSection(); i++){
+    		Section sect = c.getSection(i);
+    		String code = sect.getSectionCode();
+			for (int j = 0; j < sect.getNumSlots(); j++){
+    			Slot slot = sect.getSlot(j);
+    			newline += code + " Slot " + j + " | " + slot + "\n";
+    			//Echo for checking instructors[]
+    			//newline += "Taught by: " + sect.getInstructorString() + "\n";
+    		}
+		}
+		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
+		return;
+    }
+    
     @FXML
-    void allSubjectSearch() {
+    void allSubjectSearch(){
+    	searchedCourseList.clear();
+    	List<Course> AllCourseList = new Vector<Course>();
+    	List<String> Subjects = scraper.getSubjects(textfieldURL.getText(), textfieldTerm.getText()); 
+    	if(Subjects == null) {textAreaConsole.setText("Something wrong with BASE URL or Term.");};
+    	int AllSubjectCount = Subjects.size(); 
     	
+    	DoWork = new Service<Integer>() {
+
+			@Override
+			protected Task<Integer> createTask() {
+				
+				return new Task<Integer>() {
+
+					@Override
+					protected Integer call() throws Exception {
+						int sectionCount = 0;
+							for(int i=0;i<AllSubjectCount;++i) {//search and get all subjects' info
+					    		List<Course> temp = scraper.scrape(textfieldURL.getText(), textfieldTerm.getText(), Subjects.get(i));
+					    		for(Course c: temp) {
+					    			if (c.isValidCourse()) {
+					        			sectionCount  += c.getNumValidSections();
+					        			AllCourseList.add(c);
+					        			searchedCourseList.add(c);
+					        			}
+					    		}
+					    		updateProgress(i+1, AllSubjectCount);
+					    		System.out.println("SUBJECT is done:" + i);
+							}
+						return sectionCount;
+					}
+					
+				};
+			}	
+    	};
+    	
+    	progressbar.progressProperty().bind(DoWork.progressProperty());
+    	DoWork.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+
+			@Override
+			public void handle(WorkerStateEvent event) {
+				textAreaConsole.setText("Total Number of Categories:"+ AllSubjectCount +"\n");
+		    	textAreaConsole.setText(textAreaConsole.getText() + "Total Number of Course in this search: " + AllCourseList.size() + "\nTotal Number of difference sections in this search: " + DoWork.getValue() + "\n");
+
+		    	for (Course c : AllCourseList) {
+		    		ListDetail(c);
+		    	}			
+			} 	
+    	});
+    	DoWork.restart();  
+    	
+
     }
 
     // Task 6
@@ -308,9 +377,14 @@ public class Controller {
 
     @FXML
     void search() {
-    	//task 3 
+    	// task 5
+    	List<String> Subjects = scraper.getSubjects(textfieldURL.getText(), textfieldTerm.getText()); 
+    	if(Subjects == null) {textAreaConsole.setText("Something wrong with BASE URL or Term.");};
+    	int AllSubjectCount = Subjects.size();   
+    	
+    	//task 3  
     	active = false;
-    	//Task 6 
+    	//Task 6  
     	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
     	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 													
     	//task 1-------------------------for console displace
@@ -390,7 +464,8 @@ public class Controller {
     	}
     	//task 1.3.c.a end -----------------------------
     	//task 1-------------------------for showing all information required by task 1 in the console
-    	textAreaConsole.setText("Total Number of difference sections in this search: " + sectionCount +
+    	textAreaConsole.setText("Total Number of Categories:"+ AllSubjectCount +"\n"+
+    							"Total Number of difference sections in this search: " + sectionCount +
     							"\nTotal Number of Course in this search: " + courseCount + 
     							"\nInstructors who has teaching assignment this term but does not need to teach at Tu 3:10pm: "
     							+ names +"\n"
