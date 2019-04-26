@@ -537,7 +537,6 @@ public class Controller {
     	{
 	    	cboxAM.setSelected(true);
 	    	cboxPM.setSelected(true);
-	    	
 	    	cboxMon.setSelected(true);
 	    	cboxTue.setSelected(true);
 	    	cboxWed.setSelected(true);
