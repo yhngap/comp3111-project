@@ -374,7 +374,6 @@ public class Controller {
     // Task 6
     @FXML
     void findInstructorSfq() {
-    	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
     	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
     	textAreaConsole.clear();
     	
@@ -385,8 +384,10 @@ public class Controller {
 		List<?> v = scraper.scrapeInstructorSFQ("file:///C:/Users/zhanzp/git/Comp3111_Project/src/main/resources/sfq.html", insSFQ);
 		for (int ir = 0; ir < 300; ir++) {
 			if (insSFQ[ir].getexist() == true) {
-				textAreaConsole.setText(textAreaConsole.getText() + "The score of instructor " + insSFQ[ir].getname() + " = " + insSFQ[ir].getscore() + "\n");
-				System.out.println("The score of instructor " + insSFQ[ir].getname() + " = " + insSFQ[ir].getscore() + "\n");
+				if (insSFQ[ir].gettimes() != 0) {
+					textAreaConsole.setText(textAreaConsole.getText() + "The score of instructor " + insSFQ[ir].getname() + " = " + (insSFQ[ir].getscore()/insSFQ[ir].gettimes()) +"\n");
+					System.out.println("The score of instructor " + insSFQ[ir].getname() + " = " + (insSFQ[ir].getscore()/insSFQ[ir].gettimes()) +"\n");	
+				}
 			}
 		}
     	
@@ -531,6 +532,7 @@ public class Controller {
   @FXML
     
     void selectAll() {
+  	buttonSfqEnrollCourse.setDisable(false);
     	if (buttonSelectAll.getText().equals("Select All")) 
     	{
 	    	cboxAM.setSelected(true);
@@ -654,6 +656,7 @@ public class Controller {
     @FXML
     void filter() {
     	// Clear the console first
+    	buttonSfqEnrollCourse.setDisable(false);
     	textAreaConsole.setText("");
     	
     	// Return if courseList is empty
