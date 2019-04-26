@@ -6,6 +6,7 @@ public class InstructorSFQ {
 	private int times;
 	private boolean exist;
 
+
 public InstructorSFQ () {
 	this.score = 0;
 	this.name = "";

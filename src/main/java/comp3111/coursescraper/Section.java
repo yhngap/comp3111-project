@@ -162,7 +162,7 @@ public class Section {
 		
 	}
 	/**
-	 * @return the numInstructors
+	 * @return the numInstructors 
 	 */
 	public int getNumInstructors() {
 		return this.numInstructors;

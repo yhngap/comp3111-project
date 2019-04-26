@@ -530,7 +530,7 @@ public class Controller {
     }
  
   @FXML
-    
+   
     void selectAll() {
   	buttonSfqEnrollCourse.setDisable(false);
     	if (buttonSelectAll.getText().equals("Select All")) 

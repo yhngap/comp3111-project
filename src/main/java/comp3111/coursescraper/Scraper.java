@@ -577,6 +577,7 @@ public class Scraper {
 							pos++;
 						}
 					}
+					
 // L4
 					if (check_L4.equals("L4 ")) {
 						String L4_name = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(5).asText();

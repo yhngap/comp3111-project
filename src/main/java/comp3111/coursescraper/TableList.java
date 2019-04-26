@@ -116,7 +116,7 @@ public class TableList {
 	public boolean getcourseSFQ() {
 		return this.courseSFQ;
 	}
-// Get SFQ Score
+// Get SFQ Score 
 	public void setcourseSFQScore (double S) {
 		this.courseSFQScore = S;
 	}
