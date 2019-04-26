@@ -11,6 +11,8 @@ public class TableList {
 	private boolean enrolled;
 	private Slot [] slots;
 	private int numSlots;
+	private boolean courseSFQ;
+	private double courseSFQScore;
 	
 	TableList (String CC, String CN, String Ins, String Sec) {
 		this.CourseCode = CC;
@@ -19,6 +21,7 @@ public class TableList {
 		this.sections = Sec;
 		this.enroll = new CheckBox();
 		this.enrolled = false;
+		this.courseSFQ = false;
 	}
 	TableList () {
 		this.CourseCode = null;
@@ -105,6 +108,22 @@ public class TableList {
 	public boolean getEnrolled() {
 		return this.enrolled;
 	}
+// Check SFQ List
+	public void setcourseSFQ(boolean a) {
+		this.courseSFQ = a;
+	}
 	
+	public boolean getcourseSFQ() {
+		return this.courseSFQ;
+	}
+// Get SFQ Score
+	public void setcourseSFQScore (double S) {
+		this.courseSFQScore = S;
+	}
+	
+	public double getcourseSFQScore() {
+		return courseSFQScore;
+	}
+		
 	
 }

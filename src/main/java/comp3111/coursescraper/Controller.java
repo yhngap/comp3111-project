@@ -1,6 +1,7 @@
 package comp3111.coursescraper;
 
 
+
 import java.awt.event.ActionEvent;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -156,6 +157,8 @@ public class Controller {
     private int sectionCount = 0;	
     private int numEnroll = 0;
     private boolean active = false;
+    private boolean filterNew = false;
+    private int different = 0;
 	@FXML 																			         // Associate data with Columns
 	private void initialize() {
 		
@@ -209,7 +212,6 @@ public class Controller {
     			{0.5,0,1}
     	};
     	for(int s= 0; s < numEnroll; s++ ) {
-    		System.out.println( enrollList[s].getNumSlots());
     		for(int k = 0; k < enrollList[s].getNumSlots(); k++) {
     			day = enrollList[s].getSlot(k).getDay();
     			startH = enrollList[s].getSlot(k).getStartHour();
@@ -217,8 +219,7 @@ public class Controller {
     			endH = enrollList[s].getSlot(k).getEndHour();
     			endM = enrollList[s].getSlot(k).getEndMinute();
     			
-    			System.out.println(endM-startM);
-    			System.out.println("H: " + startH + " -----day: " + day);
+
     			listLabel[index] = new Label(enrollList[s].getCourseCode() + "\n" + enrollList[s].getSections().substring(0,3));
     			listLabel[index].setStyle("-fx-font: 6 arial;");
     			if(s<20) {
@@ -244,7 +245,15 @@ public class Controller {
 	@FXML
 	void userClickedOnTable() {		
 		// Task 3 Update Enroll information 
-		for (int it = 0 ; it < sectionCount; it++) {
+		int sectionNum =0;
+		for (int it = 0 ; it < filteredCourseList.size(); it++) {
+			sectionNum += filteredCourseList.get(it).getNumSection();
+		}
+		if(filterNew) {
+			sectionNum += different ;
+		}
+		different =0;
+		for (int it = 0 ; it < sectionNum; it++) {
 				if (ScrappedResult[it].getEnroll().isSelected()) {
 					int noContain = 0;
 					for(int im = 0 ; im < numEnroll+1; im++) {
@@ -336,7 +345,6 @@ public class Controller {
 					        			}
 					    		}
 					    		updateProgress(i+1, AllSubjectCount);
-					    		System.out.println("SUBJECT is done:" + i);
 							}
 						return sectionCount;
 					}
@@ -368,11 +376,32 @@ public class Controller {
     void findInstructorSfq() {
     	buttonSfqEnrollCourse.setDisable(false);    	                            // Enable the sfqEnrollCourse Button 
     	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
+    	textAreaConsole.clear();
+    	
+		InstructorSFQ insSFQ [] = new InstructorSFQ [500];			   // Create new InsSFQ List class
+		for (int i = 0; i < 500; i++) {
+			insSFQ[i] = new InstructorSFQ();
+		}
+		List<?> v = scraper.scrapeInstructorSFQ("file:///C:/Users/zhanzp/git/Comp3111_Project/src/main/resources/sfq.html", insSFQ);
+		for (int ir = 0; ir < 300; ir++) {
+			if (insSFQ[ir].getexist() == true) {
+				textAreaConsole.setText(textAreaConsole.getText() + "The score of instructor " + insSFQ[ir].getname() + " = " + insSFQ[ir].getscore() + "\n");
+				System.out.println("The score of instructor " + insSFQ[ir].getname() + " = " + insSFQ[ir].getscore() + "\n");
+			}
+		}
+    	
     }
 
     @FXML
     void findSfqEnrollCourse() {
-    	List<?> v = scraper.scrapeSFQ("file:///C:/Users/mzhengah/git/Comp3111_Project/src/main/resources/sfq.html");
+    	textAreaConsole.clear();
+    	List<?> v = scraper.scrapeSFQ("file:///C:/Users/zhanzp/git/Comp3111_Project/src/main/resources/sfq.html", enrollList);
+    	for (int ir = 0 ; ir < 100; ir++) {
+    		if (enrollList[ir].getcourseSFQ() == true) {
+    			textAreaConsole.setText(textAreaConsole.getText() + "The score of " + enrollList[ir].getCourseCode() + " = " + enrollList[ir].getcourseSFQScore() + "\n");
+    		}
+    		
+    	}
     }
 
     @FXML
@@ -472,75 +501,7 @@ public class Controller {
     							+ textAreaConsole.getText());
     	
     	//task 1  end------------------------------------------------------------------------------------
-    	
-
-    	
-    	int i = 0;
-    	
-    	final ObservableList<TableList> data = FXCollections.observableArrayList();
-
-//    	task 3 ----------------------
-    	for(int u = 0;  u < 1000; u++) {
-    		ScrappedResult[u] = new TableList();		
-    	}
-    	
-	    if (enrollList[0] == null) {
-			for (int jc = 0 ; jc < 1000; jc++) {
-				enrollList[jc] = new TableList();
-			}    	
-	    }    
-    	
-	    if(numEnroll != 0 ) {
-	    	i = numEnroll;
-	    }
-	    for(int j = 0; j<i;j++) {
-	    	ScrappedResult[j].setEnroll(enrollList[j].getEnroll());
-     		ScrappedResult[j].setCourseCode(enrollList[j].getCourseCode());
-    		ScrappedResult[j].setCourseName(enrollList[j].getCourseName());
-    		ScrappedResult[j].setSections(enrollList[j].getSections());
-    		ScrappedResult[j].setInstructors(enrollList[j].getInstructors());
-    		for(int s = 0; s < enrollList[j].getNumSlots(); s++) {
-    			ScrappedResult[j].addSlot(enrollList[j].getSlot(s));
-    		}
-	    }
-    	for (Course c: v) {
-    		for (int k = 0 ; k < c.getNumSection(); k++) {
-    			String InstructorTotal = "";
-    			boolean skip = false;
-    			CheckBox cb = new CheckBox();
-    			c.setCourseCode(c.getTitle());
-    			c.setCourseName(c.getTitle());
-    			c.setfirstSectionCode(c.getSection(k).getSectionCode());
-    			for(int j =0; j<numEnroll;j++) {
-    				if(c.getfirstSectionCode().equals(enrollList[j].getSections())) {
-    					skip =true;
-    					i-=1;
-    				}
-    			}
-    			if(!skip) {
-	    			ScrappedResult[i+k].setEnroll(cb);
-	         		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
-	        		ScrappedResult[i+k].setCourseName(c.getCourseName());
-	        		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
-	        		for (int suibian = 0; suibian < c.getNumIstructor(); suibian++) {
-	        			InstructorTotal += c.getInstructor(suibian) + " ";
-	        		}
-	        		ScrappedResult[i+k].setInstructors(InstructorTotal);
-	        		System.out.println(c.getSection(k).getNumSlots());
-	        		for(int s = 0; s < c.getSection(k).getNumSlots(); s++) {
-	        			ScrappedResult[i+k].addSlot(c.getSection(k).getSlot(s));
-	        		}
-	    		}
-    		}
-    		    		
-    		int temp = c.getNumSection();
-    		i = i + temp;
-    	} 
-
-    	for (int m = 0; m < sectionCount+numEnroll; m++) {    			
-    		data.add(ScrappedResult[m]);
-    	}
-    	tableView.setItems(data);                                                            // Add data inside table
+        	
     	// CheckBox Event
     	// For-loop added for Task 2 */
     	// Save the scraped data for later use
@@ -608,6 +569,84 @@ public class Controller {
 	    	
 	    	buttonSelectAll.setText("Select All");
 	    	filter();
+	    	
+	    	// Task 3
+	    	// Scrape the filter result to the table list
+	    	    	int i = 0;
+	    	    	
+	    	    	final ObservableList<TableList> data = FXCollections.observableArrayList();
+
+//	    	    	task 3 ----------------------
+	    	    	for(int u = 0;  u < 1000; u++) {
+	    	    		ScrappedResult[u] = new TableList();		
+	    	    	}
+	    	    	
+	    		    if (enrollList[0] == null) {
+	    				for (int jc = 0 ; jc < 1000; jc++) {
+	    					enrollList[jc] = new TableList();
+	    				}    	
+	    		    }    
+	    	    	
+	    		    if(numEnroll != 0 ) {
+	    		    	i = numEnroll;
+	    		    }
+	    		    for(int j = 0; j < i ; j++) {
+	    		    	ScrappedResult[j].setEnroll(enrollList[j].getEnroll());
+	    	     		ScrappedResult[j].setCourseCode(enrollList[j].getCourseCode());
+	    	    		ScrappedResult[j].setCourseName(enrollList[j].getCourseName());
+	    	    		ScrappedResult[j].setSections(enrollList[j].getSections());
+	    	    		ScrappedResult[j].setInstructors(enrollList[j].getInstructors());
+	    	    		for(int s = 0; s < enrollList[j].getNumSlots(); s++) {
+	    	    			ScrappedResult[j].addSlot(enrollList[j].getSlot(s));
+	    	    		}
+	    		    }
+	    	    	for (Course c: filteredCourseList) {
+
+	    	    		for (int k = 0 ; k < c.getNumSection(); k++) {
+	    	    			String InstructorTotal = "";
+	    	    			boolean skip = false;
+	    	    			CheckBox cb = new CheckBox();
+	    	    			c.setCourseCode(c.getTitle());
+	    	    			c.setCourseName(c.getTitle());
+	    	    			c.setfirstSectionCode(c.getSection(k).getSectionCode());
+	    	    			for(int j = 0 ; j < numEnroll; j++) {
+	    	    				if(c.getfirstSectionCode().equals(enrollList[j].getSections())) {
+	    	    					skip =true;
+	    	    					i -= 1;
+	    	    					different+=1;
+	    	    				}
+	    	    			}
+	    	    			if(!skip) {
+	    		    			ScrappedResult[i+k].setEnroll(cb);
+	    		         		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
+	    		        		ScrappedResult[i+k].setCourseName(c.getCourseName());
+	    		        		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
+	    		        		String instructors = "";
+	    		        		
+	    		        		for(int num=0;num<c.getSection(k).getNumInstructors();num++) {
+	    		        			instructors=instructors+c.getSection(k).getInstructor(num)+"   ";
+	    		        		}
+	    		        		ScrappedResult[i+k].setInstructors(instructors);
+
+	    		        		for(int s = 0; s < c.getSection(k).getNumSlots(); s++) {
+	    		        			ScrappedResult[i+k].addSlot(c.getSection(k).getSlot(s));
+	    		        		}
+	    		    		}
+	    	    		}
+	    	    		    		
+	    	    		int temp = c.getNumSection();
+	    	    		i = i + temp;
+	    	    } 
+	    	
+
+	    	for (int m = 0; m < sectionCount + numEnroll; m++) {    			
+	    		data.add(ScrappedResult[m]);
+	    	}
+	    	tableView.setItems(data);                                                            // Add data inside table
+	    	
+    	}
+    	if(numEnroll !=0) {
+    		filterNew = true;
     	}
     }
 
@@ -657,7 +696,9 @@ public class Controller {
         		output += newline + "\n";
         	}
         	filteredCourseList.addAll(searchedCourseList);
-    		textAreaConsole.setText(output + "\n");
+					
+        	textAreaConsole.setText(output + "\n");
+
     	}
     	// Else some conditions are true -> filter is on
     	else {
@@ -757,6 +798,84 @@ public class Controller {
         	}
         	textAreaConsole.setText(output);
     	}
+    	
+    	// Task 3
+    	// Scrape the filter result to the table list
+    	    	int i = 0;
+    	    	
+    	    	final ObservableList<TableList> data = FXCollections.observableArrayList();
+
+//    	    	task 3 ----------------------
+    	    	for(int u = 0;  u < 1000; u++) {
+    	    		ScrappedResult[u] = new TableList();		
+    	    	}
+    	    	
+    		    if (enrollList[0] == null) {
+    				for (int jc = 0 ; jc < 1000; jc++) {
+    					enrollList[jc] = new TableList();
+    				}    	
+    		    }    
+    	    	
+    		    if(numEnroll != 0 ) {
+    		    	i = numEnroll;
+    		    }
+    		    for(int j = 0; j < i ; j++) {
+    		    	ScrappedResult[j].setEnroll(enrollList[j].getEnroll());
+    	     		ScrappedResult[j].setCourseCode(enrollList[j].getCourseCode());
+    	    		ScrappedResult[j].setCourseName(enrollList[j].getCourseName());
+    	    		ScrappedResult[j].setSections(enrollList[j].getSections());
+    	    		ScrappedResult[j].setInstructors(enrollList[j].getInstructors());
+    	    		for(int s = 0; s < enrollList[j].getNumSlots(); s++) {
+    	    			ScrappedResult[j].addSlot(enrollList[j].getSlot(s));
+    	    		}
+    		    }
+    	    	for (Course c: filteredCourseList) {
+
+    	    		for (int k = 0 ; k < c.getNumSection(); k++) {
+    	    			String InstructorTotal = "";
+    	    			boolean skip = false;
+    	    			CheckBox cb = new CheckBox();
+    	    			c.setCourseCode(c.getTitle());
+    	    			c.setCourseName(c.getTitle());
+    	    			c.setfirstSectionCode(c.getSection(k).getSectionCode());
+    	    			for(int j = 0 ; j < numEnroll; j++) {
+    	    				if(c.getfirstSectionCode().equals(enrollList[j].getSections())) {
+    	    					skip =true;
+    	    					i -= 1;
+    	    					different+=1;
+    	    				}
+    	    			}
+    	    			if(!skip) {
+    		    			ScrappedResult[i+k].setEnroll(cb);
+    		         		ScrappedResult[i+k].setCourseCode(c.getCourseCode());
+    		        		ScrappedResult[i+k].setCourseName(c.getCourseName());
+    		        		ScrappedResult[i+k].setSections(c.getfirstSectionCode());
+    		        		String instructors = "";
+    		        		
+    		        		for(int num=0;num<c.getSection(k).getNumInstructors();num++) {
+    		        			instructors=instructors+c.getSection(k).getInstructor(num)+"   ";
+    		        		}
+    		        		ScrappedResult[i+k].setInstructors(instructors);
+
+    		        		for(int s = 0; s < c.getSection(k).getNumSlots(); s++) {
+    		        			ScrappedResult[i+k].addSlot(c.getSection(k).getSlot(s));
+    		        		}
+    		    		}
+    	    		}
+    	    		    		
+    	    		int temp = c.getNumSection();
+    	    		i = i + temp;
+    	    	} 
+
+    	    	for (int m = 0; m < sectionCount + numEnroll; m++) {    			
+    	    		data.add(ScrappedResult[m]);
+    	    	}
+    	    	tableView.setItems(data);                                                            // Add data inside table
+    	    	if(numEnroll !=0) {
+    	    		filterNew = true;
+    	    	}
     }
+    
+    
 
 }

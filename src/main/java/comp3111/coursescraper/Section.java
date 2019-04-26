@@ -7,11 +7,14 @@ import java.time.LocalTime;
  *One section object contains section code, section type, number of slots and slot objects. 
  */
 public class Section {
+	private static final int DEFAULT_MAX_Instructor =10;
 	private static final int DEFAULT_MAX_SLOT2 =10;
 	private String sectionCode;
 	private int sectionType;
 	private Slot [] slots;
 	private int numSlots;
+	private String [] instructors;
+	private int numInstructors;
 	public static final String type[] = {"L","T","La"};
 	/**
 	 *construct maximum number of empty slots into array
@@ -20,6 +23,9 @@ public class Section {
 		slots = new Slot[DEFAULT_MAX_SLOT2];
 		for (int i = 0; i < DEFAULT_MAX_SLOT2; i++) slots[i] = null;
 		numSlots = 0;
+		instructors = new String[DEFAULT_MAX_Instructor];
+		for (int i = 0; i < DEFAULT_MAX_Instructor; i++) instructors[i] = null;
+		numInstructors = 0;
 	}
 	/**
 	 * @return s return the other the same section object
@@ -32,6 +38,11 @@ public class Section {
 		s.sectionCode = this.sectionCode;
 		s.sectionType = this.sectionType;
 		s.numSlots = this.numSlots;
+		s.numInstructors = this.numInstructors;
+		s.instructors = new String[this.numInstructors];
+		for(int i = 0; i<this.numInstructors; i++) {
+			s.instructors[i]=this.instructors[i];
+		}
 		return s;
 	}  
 	/**
@@ -88,6 +99,8 @@ public class Section {
 		this.numSlots = numSlots;
 	}
 	
+	
+	
 	/* Helper functions for filter (Task 2) */
 	
 	public boolean containsAMSlot() {
@@ -140,6 +153,36 @@ public class Section {
 		if (sectionCode.substring(0, 1).equals("L") || sectionCode.substring(0, 1).equals("T") || sectionCode.substring(1, 2).equals("LA"))
 			return true;
 		return false;
+	}
+	/**
+	 * @param numInstructors the numInstructors to set
+	 */
+	public void setNumInstructors(int numInstructors) {
+		this.numInstructors = numInstructors;
+		
+	}
+	/**
+	 * @return the numInstructors
+	 */
+	public int getNumInstructors() {
+		return this.numInstructors;
+	}
+	/**
+	 * @param name to add the name into instructor list
+	 */
+	public void addInstructor(String name) {
+		if(numInstructors>=DEFAULT_MAX_Instructor)
+			return;
+		instructors[numInstructors++] = name;
+	}
+	/**
+	 * @param index to get instructor's name
+	 * @return name of instructor
+	 */
+	public String getInstructor(int index) {
+		if (index >= 0 && index < numInstructors)
+			return instructors[index];
+		return null;
 	}
 }
 //task 1.2 end --------------------------------

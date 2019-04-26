@@ -152,7 +152,7 @@ public class Scraper {
 	 * @param c course for adding section
 	 * @param section to set the sectioncode
 	 */
-	private	Section createSection( Course c,String section) {
+	private	Section createSection( Course c,String section, String [] name, int nameIndex) {
 		int type;
 		if(section.substring(0,2).equals("LA")) {
 			type=2;
@@ -169,6 +169,9 @@ public class Scraper {
 		Section s = new Section();
 		s.setSectionCode(section);
 		s.setsectionType(type);
+		for(int i = 0; i < nameIndex; i++) {
+			s.addInstructor(name[i]);
+		}
 		return s;
 	}
 	//task 1.2.2 end--------------------------------
@@ -256,7 +259,7 @@ public class Scraper {
 						nameIndex += 1;	
 					}
 					HtmlElement s = (HtmlElement) e.getFirstByXPath(".//td[contains(@align,'center')]");
-					Section section = createSection(c,s.asText());
+					Section section = createSection(c,s.asText(),names,nameIndex);
 					addSectionSlot(e,section,false);
 					addSlot(e, c, false,names,nameIndex);
 					e = (HtmlElement)e.getNextSibling();
@@ -311,6 +314,301 @@ public class Scraper {
 		}catch(Exception e) {
 			System.out.println(e);
 		}
+		return null;
+	}
+	
+	// Task 6 CourseSFQ
+	public List<Course> scrapeSFQ(String baseurl, TableList [] enrollList){
+		try {
+			HtmlPage page = client.getPage(baseurl);
+			List<?> items = (List<?>) page.getByXPath("//table");          // Total 13 tables
+			Vector<TableList>result = new Vector<TableList>();
+		
+			if(items.isEmpty()) {
+				System.out.println("return");
+				return null;
+			}
+	
+			for(int i = 0; i < items.size(); i++) {
+				HtmlElement item = (HtmlElement) items.get(i);
+				List<?> namelist = item.getByXPath(".//td[contains(@colspan,'3')]");				
+
+				for (int j = 0; j < namelist.size(); j++) {
+					HtmlElement list = (HtmlElement) namelist.get(j);
+					String scrapeText = list.asText();
+					int scrapeSize = scrapeText.length();
+			
+					for (int k = 0 ; k < 100 ; k++) {		
+
+						if (list.asText().substring(10,11) != " ") {
+							
+							if (list.asText().substring(1).equals(enrollList[k].getCourseCode() + " ")) {
+								int sectionOfSFQCourse = 1;
+								double L2_Score = 0;
+								double L3_Score = 0;
+								double L4_Score = 0;
+								double L1_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+								
+								if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1).equals("L2 ")) {
+									L2_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+									sectionOfSFQCourse++;
+								}
+								
+								if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1).equals("L3 ")) {							
+									L3_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+									sectionOfSFQCourse++;
+								}
+								
+								if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1).equals("L4 ")) {
+									L4_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+									sectionOfSFQCourse++;
+								}
+								
+								double scoreOfSFQ = (L1_Score + L2_Score + L3_Score + L4_Score ) / sectionOfSFQCourse;
+									
+								enrollList[k].setcourseSFQScore(scoreOfSFQ);	
+								enrollList[k].setcourseSFQ(true);
+								
+							}
+						}
+						
+						if (list.asText().substring(1).equals(enrollList[k].getCourseCode())) {
+							
+							int sectionOfSFQCourse = 1;
+							double L2_Score = 0;
+							double L3_Score = 0;
+							double L4_Score = 0;
+							double L1_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+							
+							if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1).equals("L2 ")) {
+								L2_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+								sectionOfSFQCourse++;
+							}
+							
+							if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1).equals("L3 ")) {							
+								L3_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+								sectionOfSFQCourse++;
+							}
+							
+							if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1).equals("L4 ")) {
+								L4_Score = Double.parseDouble(list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(7).asText().substring(0,4));
+								sectionOfSFQCourse++;
+							}
+							
+							double scoreOfSFQ = (L1_Score + L2_Score + L3_Score + L4_Score ) / sectionOfSFQCourse;
+						
+							enrollList[k].setcourseSFQScore(scoreOfSFQ);	
+							enrollList[k].setcourseSFQ(true);
+							
+						}
+
+					}
+				}
+				
+
+			}
+		} catch (Exception e) {
+		System.out.println(e);		
+		}
+		
+		
+	
+		return null;
+	}
+	
+	// Task 6 Instructor SFQ
+	public List<Course> scrapeInstructorSFQ(String baseurl, InstructorSFQ [] insSFQ){
+		try {
+			HtmlPage page = client.getPage(baseurl);
+			List<?> items = (List<?>) page.getByXPath("//table");          // Total 13 tables
+			Vector<TableList>result = new Vector<TableList>();
+			int pos = 1;
+		
+			if(items.isEmpty()) {
+				System.out.println("return");
+				return null;
+			}
+	
+			// section.getIns
+			
+			for(int i = 0; i < items.size(); i++) {
+				HtmlElement item = (HtmlElement) items.get(i);
+				List<?> namelist = item.getByXPath(".//td[contains(@colspan,'3')]");	
+
+				for (int j = 0; j < (namelist.size() - 1); j++) {
+					HtmlElement list = (HtmlElement) namelist.get(j);
+					System.out.println("namelist.size() - 1 = " + (namelist.size() - 1));
+					
+					String name = list.getParentNode().getNextElementSibling().getNextElementSibling().getChildNodes().get(5).asText();
+					String score = list.getParentNode().getNextElementSibling().getNextElementSibling().getChildNodes().get(9).asText().substring(0,4);
+					if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes() != null) {
+						String check_L2 = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1);
+						System.out.println("check_L2 = " + check_L2);
+//						if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes() != null) {
+//							String check_L3 = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1);
+//							if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes() != null) {
+//								String check_L4 = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1);
+//							}
+//						}
+						
+					}
+					
+				
+					
+					
+
+// L1
+					for (int k = 0; k < pos; k++) {	
+						if (insSFQ[k].getname().equals(name)) {			
+							
+							if (score.equals("-(-)")) {	}	
+							
+							else {
+								insSFQ[k].addscore(Double.parseDouble(score));
+								insSFQ[k].addtimes(1);
+								insSFQ[k].setexist(true);
+								k = pos;
+								System.out.println("oh yes");
+							}		
+						}
+						
+						else if (k == (pos-1) & insSFQ[k].getname() != name) {					
+							if (score.equals("-(-)")) {
+								System.out.println("score before = " + score );
+								insSFQ[k].setexist(true);
+								insSFQ[k].setname(name);							
+								k = pos;
+							}						
+							else {
+								insSFQ[k].setexist(true);
+								insSFQ[k].setname(name);	
+
+								k = pos;
+								insSFQ[k].addscore(Double.parseDouble(score));
+
+								insSFQ[k].addtimes(1);
+
+							}
+						}
+					}
+					
+					if (pos > 300) { }
+					else {
+						pos++;
+					}					
+							
+// L2					
+//					if (check_L2.equals("L2 ")) {
+//						for (int k = 0; k < pos; k++) {
+//							if (insSFQ[k].getname().equals(name)) {											
+//								if (score.equals("-(-)")) {	}	
+//								else {
+//									insSFQ[k].addscore(Double.parseDouble(score));
+//									insSFQ[k].addtimes(1);
+//									insSFQ[k].setexist(true);
+//									k = pos;
+//									System.out.println("oh yes");
+//								}		
+//							}
+//							
+//							else if (k == (pos-1) & insSFQ[k].getname() != name) {
+//								if (score.equals("-(-)")) {
+//									System.out.println("score before = " + score );
+//									insSFQ[k].setexist(true);
+//									insSFQ[k].setname(name);							
+//									k = pos;
+//								}
+//								else {
+//									insSFQ[k].setexist(true);
+//									insSFQ[k].setname(name);							
+//									k = pos;
+//									insSFQ[k].addscore(Double.parseDouble(score));
+//									insSFQ[k].addtimes(1);
+//								}
+//						
+//							}
+//						}
+//						if (pos > 300) { }
+//						else {
+//							pos++;
+//						}
+//					}
+// L3				
+//					if (check_L3.equals("L3 ")) {
+//						for (int k = 0; k < pos; k++) {
+//							if (insSFQ[k].getname().equals(name)) {											
+//								if (score.equals("-(-)")) {	}									
+//								else {
+//									insSFQ[k].addscore(Double.parseDouble(score));
+//									insSFQ[k].addtimes(1);
+//									insSFQ[k].setexist(true);
+//									k = pos;
+//									System.out.println("oh yes");
+//								}		
+//							}							
+//							else if (k == (pos-1) & insSFQ[k].getname() != name) {								
+//								if (score.equals("-(-)")) {
+//									System.out.println("score before = " + score );
+//									insSFQ[k].setexist(true);
+//									insSFQ[k].setname(name);							
+//									k = pos;
+//								}								
+//								else {
+//									insSFQ[k].setexist(true);
+//									insSFQ[k].setname(name);							
+//									k = pos;
+//									insSFQ[k].addscore(Double.parseDouble(score));
+//									insSFQ[k].addtimes(1);
+//								}						
+//							}
+//						}
+//						if (pos > 300) { }
+//						else {
+//							pos++;
+//						}
+//					}
+// L4
+//					if (check_L4.equals("L4 ")) {
+//						for (int k = 0; k < pos; k++) {			
+//							if (insSFQ[k].getname().equals(name)) {										
+//								if (score.equals("-(-)")) {	}								
+//								else {
+//									insSFQ[k].addscore(Double.parseDouble(score));
+//									insSFQ[k].addtimes(1);
+//									insSFQ[k].setexist(true);
+//									k = pos;
+//									System.out.println("oh yes");
+//								}		
+//							}						
+//							else if (k == (pos-1) & insSFQ[k].getname() != name) {							
+//								if (score.equals("-(-)")) {
+//									System.out.println("score before = " + score );
+//									insSFQ[k].setexist(true);
+//									insSFQ[k].setname(name);							
+//									k = pos;
+//								}
+//								else {
+//									insSFQ[k].setexist(true);
+//									insSFQ[k].setname(name);							
+//									k = pos;
+//									insSFQ[k].addscore(Double.parseDouble(score));
+//									insSFQ[k].addtimes(1);
+//								}
+//					
+//							}
+//						}
+//						if (pos > 300) { }
+//						else {
+//							pos++;
+//						}
+//					}
+				}
+			}
+		} catch (Exception e) {
+		System.out.println(e);		
+		}
+	
+	
 		return null;
 	}
 }

@@ -241,9 +241,8 @@ public class Course {
 		this.numInstructors = numInstructors;
 	}
 	//task 1.5 end---------------------------------
-	
 
-	/* Helper functions for filter (Task 2) */
+		/* Helper functions for filter (Task 2) */
 	
 	/**
 	 * Returns the course attribute.
@@ -331,4 +330,6 @@ public class Course {
 		}
 		return validCount;
 	}
+
+
 }
