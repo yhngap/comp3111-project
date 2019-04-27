@@ -367,8 +367,7 @@ public class Controller {
 			} 	
     	});
     	DoWork.restart();  
-    	
-
+    	filter();
     }
 
     // Task 6
