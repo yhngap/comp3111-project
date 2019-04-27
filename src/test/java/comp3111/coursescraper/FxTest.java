@@ -57,6 +57,7 @@ public class FxTest extends ApplicationTest {
 	}
 	@Test 
 	public void userClickedOnTimeTable() {
+		
 		clickOn("#tabMain");
 		clickOn("#buttonSearch");
 		clickOn("#tabFilter");
@@ -80,6 +81,10 @@ public class FxTest extends ApplicationTest {
 		clickOn("#buttonSearch");
 		clickOn("#tabFilter");
 		clickOn("#cboxMon");
+		clickOn("#cboxLabOrTut");
+		clickOn("#cboxCC");
+		clickOn("#cboxAM");
+		clickOn("#cboxNoEx");
 		clickOn("#tabList");
 		clickOn("#tableView");
 		clickOn("#tabMain");
