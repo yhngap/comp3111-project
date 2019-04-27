@@ -14,6 +14,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -36,15 +37,14 @@ public class FxTest extends ApplicationTest {
 	}
 
 	
-//	@Test
-//	public void testButton() {
-//		clickOn("#tabSfq");
-//		clickOn("#buttonInstructorSfq");
-//		Button b = (Button)s.lookup("#buttonInstructorSfq");
+//	@Test 
+//	public void testfilter() {
+//		clickOn("#tabFilter");
+//		clickOn("#Tuesday");
+//		Button c = (Button)s.lookup("#Tuesday");
 //		sleep(1000);
-//		assertTrue(b.isDisabled());
+//
 //	}
-	
 	@Test 
 	public void testSearchButton() {
 		clickOn("#tabMain");
@@ -53,6 +53,36 @@ public class FxTest extends ApplicationTest {
 		clickOn("#buttonSearch");
 		Button b = (Button)s.lookup("#buttonSearch");
 		sleep(1000);
-		courseCount = 51;
+		courseCount =51;
+	}
+	@Test 
+	public void userClickedOnTimeTable() {
+		clickOn("#tabMain");
+		clickOn("#buttonSearch");
+		clickOn("#tabFilter");
+		clickOn("#cboxMon");
+		clickOn("#tabSfq");
+		clickOn("#buttonInstructorSfq");
+		clickOn("#buttonSfqEnrollCourse");
+		clickOn("#tabFilter");
+		clickOn("#buttonSelectAll");
+		clickOn("#tabTimetable");
+		clickOn("#tabFilter");
+		clickOn("#buttonSelectAll");
+		clickOn("#buttonSelectAll");
+		clickOn("#tabList");
+		clickOn("#tEnroll");
+	}
+
+	@Test 
+	public void userClickedOnTimeTable5() {
+		clickOn("#tabMain");
+		clickOn("#buttonSearch");
+		clickOn("#tabFilter");
+		clickOn("#cboxMon");
+		clickOn("#tabList");
+		clickOn("#tableView");
+		clickOn("#tabMain");
+		clickOn("#buttonSearch");
 	}
 }

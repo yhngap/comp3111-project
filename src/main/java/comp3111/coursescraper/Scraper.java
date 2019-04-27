@@ -286,7 +286,6 @@ public class Scraper {
 			List<?> items = (List<?>) page.getByXPath("//table");
 			Vector<TableList>result = new Vector<TableList>();
 			if(items.isEmpty()) {
-				System.out.println("return");
 				return null;
 			}
 			for(int i = 0; i < items.size(); i++) {
@@ -325,7 +324,6 @@ public class Scraper {
 			Vector<TableList>result = new Vector<TableList>();
 		
 			if(items.isEmpty()) {
-				System.out.println("return");
 				return null;
 			}
 	
@@ -425,7 +423,6 @@ public class Scraper {
 			int pos = 1;
 		
 			if(items.isEmpty()) {
-				System.out.println("return");
 				return null;
 			}
 	
@@ -445,7 +442,6 @@ public class Scraper {
 					String check_L4 = "";
 					if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes() != null) {
 						check_L2 = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1);
-						System.out.println("check_L2 = " + check_L2);
 						if (check_L2.equals("L2 ") ) {
 							check_L3 = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1);
 							if (check_L3.equals("L3 ")) {
@@ -453,21 +449,9 @@ public class Scraper {
 							}
 						}
 						
-//						if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes() != null) {
-//							String check_L3 = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1);
-//							if (list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes() != null) {
-//								String check_L4 = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(3).asText().substring(1);
-//							}
-//						}
-						
 					}
 					
-
-// L1
-					System.out.println("L1_name = " + name);
-					System.out.println("L1_score = " + score);
 					for (int k = 0; k < pos; k++) {	
-						System.out.println("k1 = " + k);
 						if (insSFQ[k].getname().equals(name)) {			
 							
 							if (score.equals("-(-)")) {	}	
@@ -505,10 +489,7 @@ public class Scraper {
 					if (check_L2.equals("L2 ")) {
 						String L2_name = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(5).asText();
 						String L2_score = list.getParentNode().getNextElementSibling().getNextElementSibling().getNextElementSibling().getNextElementSibling().getChildNodes().get(9).asText().substring(0,4);
-						System.out.println("L2_name = " + L2_name);
-						System.out.println("L2_score = " + L2_score);
 						for (int k = 0; k < pos; k++) {
-							System.out.println("k2 = " + k);
 							if (insSFQ[k].getname().equals(L2_name)) {											
 								if (score.equals("-(-)")) {	}	
 								else {
@@ -516,7 +497,6 @@ public class Scraper {
 									insSFQ[k].addtimes(1);
 									insSFQ[k].setexist(true);
 									k = pos;
-									System.out.println("oh yes");
 								}		
 							}
 							
@@ -553,12 +533,10 @@ public class Scraper {
 									insSFQ[k].addtimes(1);
 									insSFQ[k].setexist(true);
 									k = pos;
-									System.out.println("oh yes");
 								}		
 							}							
 							else if (k == (pos-1) & insSFQ[k].getname() != L3_name) {								
 								if (score.equals("-(-)")) {
-									System.out.println("score before = " + L3_score );
 									insSFQ[k].setexist(true);
 									insSFQ[k].setname(L3_name);							
 									k = pos;
@@ -590,12 +568,10 @@ public class Scraper {
 									insSFQ[k].addtimes(1);
 									insSFQ[k].setexist(true);
 									k = pos;
-									System.out.println("oh yes");
 								}		
 							}						
 							else if (k == (pos-1) & insSFQ[k].getname() != L4_name) {							
 								if (score.equals("-(-)")) {
-									System.out.println("score before = " + L4_score );
 									insSFQ[k].setexist(true);
 									insSFQ[k].setname(L4_name);							
 									k = pos;

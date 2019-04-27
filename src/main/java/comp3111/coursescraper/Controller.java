@@ -385,7 +385,6 @@ public class Controller {
 			if (insSFQ[ir].getexist() == true) {
 				if (insSFQ[ir].gettimes() != 0) {
 					textAreaConsole.setText(textAreaConsole.getText() + "The score of instructor " + insSFQ[ir].getname() + " = " + (insSFQ[ir].getscore()/insSFQ[ir].gettimes()) +"\n");
-					System.out.println("The score of instructor " + insSFQ[ir].getname() + " = " + (insSFQ[ir].getscore()/insSFQ[ir].gettimes()) +"\n");	
 				}
 			}
 		}
