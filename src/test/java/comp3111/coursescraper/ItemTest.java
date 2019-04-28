@@ -234,5 +234,10 @@ public class ItemTest {
 		List<Course> v = scraper.scrape("https://w5.ab.ust.hk/wcq/cgi-bin", "1830", "COMP");
 		assertEquals(v.get(0).getNumSection(),2);
 	}
+	@Test
+	public void Test() {
+		Section s = new Section();
+		assertEquals(s.Test(0),"");
+	}
 
 }

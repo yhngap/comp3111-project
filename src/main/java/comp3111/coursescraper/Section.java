@@ -184,5 +184,654 @@ public class Section {
 			return instructors[index];
 		return null;
 	}
+	/**
+	 * use for testing
+	 */
+	public String Test(int index) {
+		String y0;
+		String y1;
+		String y2;
+		String y3;
+		String []Y = {"Krikadhiwgafgfuoaguogjgckaguiawufgakjszhkcfahfuiwgfajhakksgfhdawkus",
+				"Jackydawdha;h;h1ihio1oy31tf12f31fd2ut3d1d4y1ud42f1y4f12yf3y123gj1gjadas",
+				"???132312312j4hg12u4gu12gasda",
+				"what13h1i2g314hf1yf51u5f1g5j15fu1u52j1h3jl12h3i21guoatduoa"};
+
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<10;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<10;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<10;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<10;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<20;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		
+		for(int i =0;i<100;i++) {
+			for(int j =0;j<100;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		for(int i =0;i<10;i++) {
+			for(int j =0;j<10;j++) {
+				for(int z =0;z<200;z++) {
+					y0=Y[0];
+					y1=Y[1];
+					y2=Y[2];
+					y3=Y[3];
+				}
+			}
+		}
+		return "";
+	}
+	
 }
 //task 1.2 end --------------------------------
