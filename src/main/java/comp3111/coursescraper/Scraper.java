@@ -323,6 +323,13 @@ public class Scraper {
 	}
 	
 	// Task 6 CourseSFQ
+	/**
+	 * A function to scrape the data from the baseurl link. The function will go to the baseurl link to scrape
+	 * all the average score of each enrolled courses
+	 * @param baseurl
+	 * @param enrollList
+	 * @return null
+	 */
 	public List<Course> scrapeSFQ(String baseurl, TableList [] enrollList){
 		try {
 			HtmlPage page = client.getPage(baseurl);
@@ -421,6 +428,13 @@ public class Scraper {
 	}
 	
 	// Task 6 Instructor SFQ
+	/**
+	 * A function to scraped all the instructor's score from the baseUrl. It will automatically calculate
+	 * the average score of every instructors
+	 * @param baseurl
+	 * @param insSFQ
+	 * @return null
+	 */
 	public List<Course> scrapeInstructorSFQ(String baseurl, InstructorSFQ [] insSFQ){
 		try {
 			HtmlPage page = client.getPage(baseurl);

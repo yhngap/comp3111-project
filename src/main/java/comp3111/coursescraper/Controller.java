@@ -159,10 +159,12 @@ public class Controller {
     private boolean active = false;
     private boolean filterNew = false;
     private int different = 0;
-	@FXML 																			         // Associate data with Columns
+	
+    /**
+     *  Associate data with Columns of Task3
+     */
+    @FXML 																			         
 	private void initialize() {
-		
-		
 		tCourseCode.setCellValueFactory(new PropertyValueFactory<TableList,String>("CourseCode"));
 		tLectureSection.setCellValueFactory(new PropertyValueFactory<TableList,String>("sections"));
 		tCourseName.setCellValueFactory(new PropertyValueFactory<TableList,String>("CourseName"));
@@ -242,6 +244,12 @@ public class Controller {
     	}
 	}
 //  task4 end -----------------------------------
+
+/**
+ * The userClickedOnTable function used to update enroll information on tableView
+ * it will return the update filter result to the table 
+ */
+
 	@FXML
 	void userClickedOnTable() {		
 		// Task 3 Update Enroll information 
@@ -301,7 +309,7 @@ public class Controller {
 	}
 // task 3 end -------------------------------------
     /**
-     * @param course course in side list scrapped
+     *  course course in side list scrapped
      */
     void ListDetail(Course c) {
     	String newline = c.getTitle() + "\n";
@@ -318,6 +326,7 @@ public class Controller {
 		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
 		return;
     }
+    
     /**
      * Event to handle the search all subject
      */
@@ -375,6 +384,9 @@ public class Controller {
     }
 
     // Task 6
+    /**
+     * Event to find the SFQ of all instructor
+     */
     @FXML
     void findInstructorSfq() {
     	buttonInstructorSfq.setDisable(false);    	                                // Enable the buttonInstructorSfq Button 
@@ -395,10 +407,13 @@ public class Controller {
     	
     }
 
+    /**
+     * Event to find the SFQ of user's enroll courses
+     */
     @FXML
     void findSfqEnrollCourse() {
     	textAreaConsole.clear();
-    	List<?> v = scraper.scrapeSFQ("file:///C:/Users/zhanzp/git/Comp3111_Project/src/main/resources/sfq.html", enrollList);
+    	List<?> v = scraper.scrapeSFQ(textfieldSfqUrl.getText(), enrollList);
     	for (int ir = 0 ; ir < 100; ir++) {
     		if (enrollList[ir].getcourseSFQ() == true) {
     			textAreaConsole.setText(textAreaConsole.getText() + "The score of " + enrollList[ir].getCourseCode() + " = " + enrollList[ir].getcourseSFQScore() + "\n");
@@ -574,6 +589,11 @@ public class Controller {
 	    	
 	    	buttonSelectAll.setText("Select All");
 	    	filter();
+	    	
+	    	/**
+	    	 * Method of scrape the filter result to the table list.
+	    	 * It will use a class 'enrollList' to store the result of enrollment and show it in the tableView
+	    	 */
 	    	
 	    	// Task 3
 	    	// Scrape the filter result to the table list
@@ -807,6 +827,11 @@ public class Controller {
     	}
     	
     	// Task 3
+    	/**
+    	 * Method of scrape the filter result to the table list.
+    	 * It will use a class 'enrollList' to store the result of enrollment and show it in the tableView
+    	 */
+    	
     	// Scrape the filter result to the table list
     	    	int i = 0;
     	    	
