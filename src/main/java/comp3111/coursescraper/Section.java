@@ -102,7 +102,9 @@ public class Section {
 	
 	
 	/* Helper functions for filter (Task 2) */
-	
+	/**
+	 * @return boolean whether it has AM slot
+	 */	
 	public boolean containsAMSlot() {
 		for (int i = 0; i < numSlots; i++) {
 			if (slots[i].getStart().isBefore(LocalTime.NOON)) {
@@ -111,7 +113,9 @@ public class Section {
 		}
 		return false;
 	}
-	
+	/**
+	 * @return boolean whether it has PM slot
+	 */	
 	public boolean containsPMSlot() {
 		for (int i = 0; i < numSlots; i++) {
 			if (slots[i].getEnd().equals(LocalTime.NOON) || slots[i].getEnd().isAfter(LocalTime.NOON)) {
@@ -120,7 +124,9 @@ public class Section {
 		}
 		return false;
 	}
-	
+	/**
+	 * @return boolean whether it has AM and PM slot
+	 */	
 	public boolean containsAMPMSlot() {
 		for (int i = 0; i < numSlots; i++) {
 			if (slots[i].getStart().isBefore(LocalTime.NOON) && (slots[i].getEnd().equals(LocalTime.NOON) || slots[i].getEnd().isAfter(LocalTime.NOON))) {
@@ -133,7 +139,9 @@ public class Section {
 		}
 		else return false;
 	}
-	
+	/**
+	 * @return boolean whether it has certain weekday slot
+	 */	
 	public boolean[] containsDaySlot() {
 		boolean[] bContainDaySlot = new boolean[6];
 		for (int i = 0; i < numSlots; i++) {
@@ -147,6 +155,9 @@ public class Section {
 	}
 	
 	// task 5
+	/**
+	 * @return boolean whether it has valid slot
+	 */	
 	public boolean isValidSection()
 	{
 		//By definition the section is invalid if a section isn't LX, LAX or TX

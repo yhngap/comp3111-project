@@ -280,6 +280,7 @@ public class Scraper {
 		}
 		return null;
 	}
+	
 	public List<Course> scrapeSFQ(String baseurl){
 		try {
 			HtmlPage page = client.getPage(baseurl);
@@ -298,6 +299,11 @@ public class Scraper {
 	return null;
 
 	}
+	/**
+	 *@param baseurl url link
+	 *@ param term 1810 or 1830
+	 * @return scrapp data
+	 */	
 	// task 5
 	public List<String> getSubjects(String baseurl, String term){
 		try {

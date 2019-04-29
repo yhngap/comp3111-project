@@ -260,7 +260,9 @@ public class Course {
 		this.attribute = attribute;
 	}
 	
-	
+	/**
+	 * @return boolean whether course is common core
+	 */	
 	public boolean isCC4Y() {
 		if (attribute.contains("Common Core") && attribute.contains("4Y")) {
 			return true;
@@ -268,13 +270,18 @@ public class Course {
 		return false;
 	}
 	
+	/**
+	 * @return boolean whether course has no exclusion
+	 */	
 	public boolean isNoEx() {
 		if (exclusion.contains("null")) {
 			return true;
 		}
 		return false;
 	}
-	
+	/**
+	 * @return boolean whether course has AM and PM section
+	 */	
 	public boolean containsAMPMSection() {
 		for (int i = 0; i < numSections; i++) {
 			if (sections[i].containsAMPMSlot())
@@ -282,7 +289,9 @@ public class Course {
 		}
 		return false;
 	}
-	
+	/**
+	 * @return boolean whether course has AM section
+	 */	
 	public boolean containsAMSection() {
 		for (int i = 0; i < numSections; i++) {
 			if (sections[i].containsAMSlot())
@@ -290,7 +299,9 @@ public class Course {
 		}
 		return false;
 	}
-	
+	/**
+	 * @return boolean whether course has PM section
+	 */		
 	public boolean containsPMSection() { 
 		for (int i = 0; i < numSections; i++) {
 			if (sections[i].containsPMSlot())
@@ -298,7 +309,9 @@ public class Course {
 		}
 		return false;
 	}
-	
+	/**
+	 * @return boolean whether course has weekday section
+	 */	
 	public boolean[] containsDaySection() {
 		boolean[] bContainsDaySection = new boolean[6];
 		for (int i = 0; i < numSections; i++) {
@@ -308,7 +321,9 @@ public class Course {
 		}
 		return bContainsDaySection;
 	}
-	
+	/**
+	 * @return boolean whether course has lab or tutorial
+	 */	
 	public boolean containsLabOrTut() {
 		for (int i = 0; i < numSections; i++) {
 			if (sections[i].getSectionCode().contains("LA") || sections[i].getSectionCode().contains("T"))
@@ -318,8 +333,13 @@ public class Course {
 	}
 	
 	// task 5
+	/**
+	 * @return boolean whether course in valid
+	 */	
 	public boolean isValidCourse() { return (getNumValidSections() > 0? true: false); }
-	
+	/**
+	 * @return integers of number of valid courses
+	 */	
 	public int getNumValidSections()
 	{
 		int validCount = numSections;	//Using decrement strategy
