@@ -300,7 +300,9 @@ public class Controller {
 		}
 	}
 // task 3 end -------------------------------------
-	
+    /**
+     * @param course course in side list scrapped
+     */
     void ListDetail(Course c) {
     	String newline = c.getTitle() + "\n";
 		for (int i = 0; i < c.getNumSection(); i++){
@@ -316,7 +318,9 @@ public class Controller {
 		textAreaConsole.setText(textAreaConsole.getText() + "\n" + newline);
 		return;
     }
-    
+    /**
+     * Event to handle the search all subject
+     */
     @FXML
     void allSubjectSearch(){
     	searchedCourseList.clear();
@@ -527,8 +531,10 @@ public class Controller {
     	
     }
  
+    /**
+     * Event to handle the selectall
+     */
   @FXML
-   
     void selectAll() {
   	buttonSfqEnrollCourse.setDisable(false);
     	if (buttonSelectAll.getText().equals("Select All")) 
@@ -648,8 +654,9 @@ public class Controller {
     		filterNew = true;
     	}
     }
-
-    // Event used to update the info displayed in console in filter tab 
+  /**
+   * Event to handle the filter
+   */
     @FXML
     void filter() {
     	// Clear the console first
